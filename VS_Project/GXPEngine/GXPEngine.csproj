@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B5126D4C-7FE0-4552-BC8C-E68D529C22B2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GXPEngine</RootNamespace>
+    <AssemblyName>GXPEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>False</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>False</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Visual\NineSlice.cs" />
+    <Compile Include="Utils\MathUtils.cs" />
+    <Compile Include="Physics\CircleCollider.cs" />
+    <Compile Include="Physics\CollisionInfo.cs" />
+    <Compile Include="Physics\PhysicsManager.cs" />
+    <Compile Include="Primitives\Circle.cs" />
+    <Compile Include="Control\Scene.cs" />
+    <Compile Include="Control\SceneManager.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="AddOns\Gizmos.cs" />
+    <Compile Include="Visual\SpriteBatch.cs" />
+    <Compile Include="AddOns\TiledLoader.cs" />
+    <Compile Include="MyGame.cs" />
+    <Compile Include="Core\Canvas.cs" />
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\GameObject.cs" />
+    <Compile Include="Sound\Sound.cs" />
+    <Compile Include="Sound\SoundChannel.cs" />
+    <Compile Include="Visual\Sprite.cs" />
+    <Compile Include="Core\BlendMode.cs" />
+    <Compile Include="Core\BoxCollider.cs" />
+    <Compile Include="Core\Collider.cs" />
+    <Compile Include="Core\GLContext.cs" />
+    <Compile Include="Core\Rectangle.cs" />
+    <Compile Include="Visual\Texture2D.cs" />
+    <Compile Include="Core\Transformable.cs" />
+    <Compile Include="Core\Vector2.cs" />
+    <Compile Include="Sound\FMOD\FMOD.cs" />
+    <Compile Include="Managers\CollisionManager.cs" />
+    <Compile Include="Managers\UpdateManager.cs" />
+    <Compile Include="OpenGL\GL.cs" />
+    <Compile Include="Core\Pivot.cs" />
+    <Compile Include="Visual\AnimationSprite.cs" />
+    <Compile Include="Utils\Mathf.cs" />
+    <Compile Include="Utils\Input.cs" />
+    <Compile Include="Utils\Key.cs" />
+    <Compile Include="AddOns\MouseHandler.cs" />
+    <Compile Include="Utils\Time.cs" />
+    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="Core\Camera.cs" />
+    <Compile Include="Managers\HierarchyManager.cs" />
+    <Compile Include="AddOns\Settings.cs" />
+    <Compile Include="AddOns\TiledMapParser.cs" />
+    <Compile Include="Core\Window.cs" />
+    <Compile Include="Visual\EasyDraw.cs" />
+    <Compile Include="Core\Collision.cs" />
+    <Compile Include="Sound\SoundSystem.cs" />
+    <Compile Include="Sound\FMOD\FMODSoundSystem.cs" />
+    <Compile Include="Sound\SoLoud\Soloud.cs" />
+    <Compile Include="Sound\SoLoud\SoloudSoundSystem.cs" />
+    <Compile Include="Physics\ACollider.cs" />
+    <Compile Include="Physics\OBCollider.cs" />
+    <Compile Include="Primitives\Box.cs" />
+    <Compile Include="Physics\Ray.cs" />
+    <Compile Include="Physics\PhysicsObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="lib\libglfw-64.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lib\libglfw.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lib\libsoloud-64.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\COPYING.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\Fmod.License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\fmodex.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\glfw.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\soloud.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\soloud_x64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Sounds\" />
+    <Folder Include="Assets\Textures\" />
+    <Folder Include="Scenes\" />
+  </ItemGroup>
+</Project>
