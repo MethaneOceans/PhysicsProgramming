@@ -43,11 +43,10 @@
   <ItemGroup>
     <Folder Include="Assets\Sounds\" />
     <Folder Include="Assets\Textures\" />
+    <Folder Include="Control\Scenes\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Control\Scene.cs" />
-    <Compile Include="Control\Scenes\TestScene0.cs" />
-    <Compile Include="Control\Scenes\TestScene1.cs" />
     <Compile Include="Core\AddOns\Settings.cs" />
     <Compile Include="Core\AddOns\TiledLoader.cs" />
     <Compile Include="Core\AddOns\TiledMapParser.cs" />

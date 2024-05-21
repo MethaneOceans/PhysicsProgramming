@@ -25,8 +25,6 @@ internal class MyGame : Game
 		AddChild(fpsCounter);
 
 		Console.WriteLine("MyGame initialized");
-
-		new TestScene0().Load();
 	}
 
 	private void Update()
