@@ -1,7 +1,9 @@
 using GXPEngine;
 using GXPEngine.Assets;
+using GXPEngine.Control;
 using GXPEngine.Debugging;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 //using GXPEngine.Scenes;
 
@@ -11,6 +13,7 @@ internal class MyGame : Game
 	private readonly EasyDraw fpsCounter;
 
 	public float SoundVolume = 0.05f;
+
 	public MyGame() : base(1600, 900, pFullScreen: false, pPixelArt: true)
 	{
 		TargetFps = int.MaxValue;
@@ -45,9 +48,10 @@ internal class MyGame : Game
 			fpsCounter.visible = showfps;
 		}
 
-		if (Input.GetKeyDown(Key.F2))
+		if (Input.GetKeyDown(Key.F2) && !(Scene.Current is TileIndexViewer))
 		{
-			new TileIndexViewer(Assets.GetTexturePath("Dungeon_Tileset.png"), 10, 10).Load();
+			if (Scene.Current == null) new TileIndexViewer(Assets.GetTexturePath("Dungeon_Tileset.png"), 10, 10).Load();
+			else Scene.Switch(new TileIndexViewer(Assets.GetTexturePath("Dungeon_Tileset.png"), 10, 10));
 		}
 	}
 	static void Main()
