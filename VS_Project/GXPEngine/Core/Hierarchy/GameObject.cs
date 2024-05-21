@@ -492,7 +492,7 @@ namespace GXPEngine
 			Vector2 worldVelocity = parent.TransformDirection(vx, vy);
 			float TOI = _collider.TimeOfImpact(other._collider,
 				//p1.x-p0.x, p1.y-p0.y, 
-				worldVelocity.x, worldVelocity.y,
+				worldVelocity.X, worldVelocity.Y,
 				out normal
 			);
 			return TOI;
@@ -588,7 +588,7 @@ namespace GXPEngine
 			}
 			else
 			{
-				return parent.TransformPoint(ret.x, ret.y);
+				return parent.TransformPoint(ret.X, ret.Y);
 			}
 		}
 
@@ -621,7 +621,7 @@ namespace GXPEngine
 			}
 			else
 			{
-				return parent.TransformPoint(ret.x, ret.y, targetParentSpace);
+				return parent.TransformPoint(ret.X, ret.Y, targetParentSpace);
 			}
 		}
 
@@ -645,7 +645,7 @@ namespace GXPEngine
 			}
 			else
 			{
-				return parent.TransformDirection(ret.x, ret.y);
+				return parent.TransformDirection(ret.X, ret.Y);
 			}
 		}
 
@@ -693,7 +693,7 @@ namespace GXPEngine
 			else
 			{
 				Vector2 ret = parent.InverseTransformPoint(x, y, fromParentSpace);
-				return base.InverseTransformPoint(ret.x, ret.y);
+				return base.InverseTransformPoint(ret.X, ret.Y);
 			}
 		}
 
@@ -717,7 +717,7 @@ namespace GXPEngine
 			else
 			{
 				Vector2 ret = parent.InverseTransformDirection(x, y);
-				return base.InverseTransformDirection(ret.x, ret.y);
+				return base.InverseTransformDirection(ret.X, ret.Y);
 			}
 		}
 

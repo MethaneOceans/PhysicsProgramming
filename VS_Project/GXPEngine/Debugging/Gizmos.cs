@@ -113,7 +113,7 @@ namespace GXPEngine
 				Vector2 start = space.TransformPoint(x1, y1);
 				Vector2 end = space.TransformPoint(x2, y2);
 
-				Instance.drawCalls.Add(new DrawLineCall(start.x, start.y, end.x, end.y, color, width));
+				Instance.drawCalls.Add(new DrawLineCall(start.X, start.Y, end.X, end.Y, color, width));
 			}
 		}
 

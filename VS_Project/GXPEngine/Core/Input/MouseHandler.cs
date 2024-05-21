@@ -93,8 +93,8 @@
 				_wasMouseDownOnTarget = isOnTarget;
 
 				_offset = _target.TransformPoint(0, 0);
-				_offset.x -= Input.mouseX;
-				_offset.y -= Input.mouseY;
+				_offset.X -= Input.mouseX;
+				_offset.Y -= Input.mouseY;
 
 			}
 			else if (_wasMouseDown && !Input.GetMouseButton(0))
@@ -105,7 +105,7 @@
 
 				_wasMouseDown = false;
 				_wasMouseDownOnTarget = false;
-				_offset.x = _offset.y = 0;
+				_offset.X = _offset.Y = 0;
 			}
 
 			if (_lastX != Input.mouseX || _lastY != Input.mouseY)

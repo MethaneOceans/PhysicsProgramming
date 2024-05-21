@@ -63,13 +63,13 @@ namespace GXPEngine
 					float[] uvs = tile.GetUVs(false);
 					for (int corner = 0; corner < 4; corner++)
 					{
-						rend.AddVert(bounds[corner].x, bounds[corner].y);
+						rend.AddVert(bounds[corner].X, bounds[corner].Y);
 						rend.AddUv(uvs[corner * 2], uvs[corner * 2 + 1]);
 
-						if (bounds[corner].x < boundsMinX) boundsMinX = bounds[corner].x;
-						if (bounds[corner].x > boundsMaxX) boundsMaxX = bounds[corner].x;
-						if (bounds[corner].y < boundsMinY) boundsMinY = bounds[corner].y;
-						if (bounds[corner].y > boundsMaxY) boundsMaxY = bounds[corner].y;
+						if (bounds[corner].X < boundsMinX) boundsMinX = bounds[corner].X;
+						if (bounds[corner].X > boundsMaxX) boundsMaxX = bounds[corner].X;
+						if (bounds[corner].Y < boundsMinY) boundsMinY = bounds[corner].Y;
+						if (bounds[corner].Y > boundsMaxY) boundsMaxY = bounds[corner].Y;
 					}
 					tile.Destroy();
 				}
@@ -122,10 +122,10 @@ namespace GXPEngine
 			float minY = float.MaxValue;
 			for (int i = 0; i < 4; i++)
 			{
-				if (bounds[i].x > maxX) maxX = bounds[i].x;
-				if (bounds[i].x < minX) minX = bounds[i].x;
-				if (bounds[i].y > maxY) maxY = bounds[i].y;
-				if (bounds[i].y < minY) minY = bounds[i].y;
+				if (bounds[i].X > maxX) maxX = bounds[i].X;
+				if (bounds[i].X < minX) minX = bounds[i].X;
+				if (bounds[i].Y > maxY) maxY = bounds[i].Y;
+				if (bounds[i].Y < minY) minY = bounds[i].Y;
 			}
 			bool test = maxX < game.RenderRange.left || maxY < game.RenderRange.top || minX >= game.RenderRange.right || minY >= game.RenderRange.bottom;
 			if (test == false)

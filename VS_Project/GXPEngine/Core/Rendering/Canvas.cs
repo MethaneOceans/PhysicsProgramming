@@ -90,9 +90,9 @@ namespace GXPEngine
 			float wd = sprite.texture.width;
 			float ht = sprite.texture.height;
 			Vector2[] corners = sprite.GetExtents();
-			destPoints[0] = new PointF(corners[0].x, corners[0].y);
-			destPoints[1] = new PointF(corners[1].x, corners[1].y);
-			destPoints[2] = new PointF(corners[3].x, corners[3].y);
+			destPoints[0] = new PointF(corners[0].X, corners[0].Y);
+			destPoints[1] = new PointF(corners[1].X, corners[1].Y);
+			destPoints[2] = new PointF(corners[3].X, corners[3].Y);
 			var uvs = sprite.GetUVs();
 			graphics.DrawImage(
 				sprite.texture.bitmap,

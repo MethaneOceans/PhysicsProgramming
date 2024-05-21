@@ -177,10 +177,10 @@ namespace GXPEngine
 			float minY = float.MaxValue;
 			for (int i = 0; i < 4; i++)
 			{
-				if (worldSpaceCorners[i].x > maxX) maxX = worldSpaceCorners[i].x;
-				if (worldSpaceCorners[i].x < minX) minX = worldSpaceCorners[i].x;
-				if (worldSpaceCorners[i].y > maxY) maxY = worldSpaceCorners[i].y;
-				if (worldSpaceCorners[i].y < minY) minY = worldSpaceCorners[i].y;
+				if (worldSpaceCorners[i].X > maxX) maxX = worldSpaceCorners[i].X;
+				if (worldSpaceCorners[i].X < minX) minX = worldSpaceCorners[i].X;
+				if (worldSpaceCorners[i].Y > maxY) maxY = worldSpaceCorners[i].Y;
+				if (worldSpaceCorners[i].Y < minY) minY = worldSpaceCorners[i].Y;
 			}
 
 			Game.main.RenderRange = new GXPEngine.Core.Rectangle(minX, minY, maxX - minX, maxY - minY);

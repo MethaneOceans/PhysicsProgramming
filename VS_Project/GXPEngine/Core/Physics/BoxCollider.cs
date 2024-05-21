@@ -52,27 +52,27 @@ namespace GXPEngine.Core
 		private bool AreaOverlap(Vector2[] c, Vector2[] d)
 		{
 			// normal 1:
-			float ny = c[1].x - c[0].x;
-			float nx = c[0].y - c[1].y;
+			float ny = c[1].X - c[0].X;
+			float nx = c[0].Y - c[1].Y;
 			// own 'depth' in direction of this normal:
-			float dx = c[3].x - c[0].x;
-			float dy = c[3].y - c[0].y;
+			float dx = c[3].X - c[0].X;
+			float dy = c[3].Y - c[0].Y;
 			float dot = (dy * ny + dx * nx);
 
 			if (dot == 0.0f) dot = 1.0f;
 
 			float t, minT, maxT;
 
-			t = ((d[0].x - c[0].x) * nx + (d[0].y - c[0].y) * ny) / dot;
+			t = ((d[0].X - c[0].X) * nx + (d[0].Y - c[0].Y) * ny) / dot;
 			maxT = t; minT = t;
 
-			t = ((d[1].x - c[0].x) * nx + (d[1].y - c[0].y) * ny) / dot;
+			t = ((d[1].X - c[0].X) * nx + (d[1].Y - c[0].Y) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
-			t = ((d[2].x - c[0].x) * nx + (d[2].y - c[0].y) * ny) / dot;
+			t = ((d[2].X - c[0].X) * nx + (d[2].Y - c[0].Y) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
-			t = ((d[3].x - c[0].x) * nx + (d[3].y - c[0].y) * ny) / dot;
+			t = ((d[3].X - c[0].X) * nx + (d[3].Y - c[0].Y) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
 			if ((minT >= 1) || (maxT <= 0)) return false;
@@ -80,22 +80,22 @@ namespace GXPEngine.Core
 			// second normal:
 			ny = dx;
 			nx = -dy;
-			dx = c[1].x - c[0].x;
-			dy = c[1].y - c[0].y;
+			dx = c[1].X - c[0].X;
+			dy = c[1].Y - c[0].Y;
 			dot = (dy * ny + dx * nx);
 
 			if (dot == 0.0f) dot = 1.0f;
 
-			t = ((d[0].x - c[0].x) * nx + (d[0].y - c[0].y) * ny) / dot;
+			t = ((d[0].X - c[0].X) * nx + (d[0].Y - c[0].Y) * ny) / dot;
 			maxT = t; minT = t;
 
-			t = ((d[1].x - c[0].x) * nx + (d[1].y - c[0].y) * ny) / dot;
+			t = ((d[1].X - c[0].X) * nx + (d[1].Y - c[0].Y) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
-			t = ((d[2].x - c[0].x) * nx + (d[2].y - c[0].y) * ny) / dot;
+			t = ((d[2].X - c[0].X) * nx + (d[2].Y - c[0].Y) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
-			t = ((d[3].x - c[0].x) * nx + (d[3].y - c[0].y) * ny) / dot;
+			t = ((d[3].X - c[0].X) * nx + (d[3].Y - c[0].Y) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
 			if ((minT >= 1) || (maxT <= 0)) return false;
@@ -109,22 +109,22 @@ namespace GXPEngine.Core
 		//ie. for hittestpoint and mousedown/up/out/over
 		private bool PointOverlapsArea(Vector2 p, Vector2[] c)
 		{
-			float dx1 = c[1].x - c[0].x;
-			float dy1 = c[1].y - c[0].y;
-			float dx2 = c[3].x - c[0].x;
-			float dy2 = c[3].y - c[0].y;
+			float dx1 = c[1].X - c[0].X;
+			float dy1 = c[1].Y - c[0].Y;
+			float dx2 = c[3].X - c[0].X;
+			float dy2 = c[3].Y - c[0].Y;
 			// first: take delta1 as normal:
 			float dot = dy2 * dx1 - dx2 * dy1;
 
 			float t;
 
-			t = ((p.y - c[0].y) * dx1 - (p.x - c[0].x) * dy1) / dot;
+			t = ((p.Y - c[0].Y) * dx1 - (p.X - c[0].X) * dy1) / dot;
 			if ((t > 1) || (t < 0)) return false;
 
 			// next: take delta2 as normal:
 			dot = -dot;
 
-			t = ((p.y - c[0].y) * dx2 - (p.x - c[0].x) * dy2) / dot;
+			t = ((p.Y - c[0].Y) * dx2 - (p.X - c[0].X) * dy2) / dot;
 
 			if ((t > 1) || (t < 0)) return false;
 
@@ -144,61 +144,61 @@ namespace GXPEngine.Core
 				float maxTOI = float.MinValue;
 				float minTOE = float.MaxValue;
 				// normals of this vs points of other:
-				float nx = -c[0].y + c[1].y;
-				float ny = -c[1].x + c[0].x;
+				float nx = -c[0].Y + c[1].Y;
+				float ny = -c[1].X + c[0].X;
 				if (UpdateImpactExitTime(
-						c[0].x, c[0].y, nx, ny,
-						c[3].x - c[0].x, c[3].y - c[0].y, d, -vx, -vy, ref maxTOI, ref minTOE))
+						c[0].X, c[0].Y, nx, ny,
+						c[3].X - c[0].X, c[3].Y - c[0].Y, d, -vx, -vy, ref maxTOI, ref minTOE))
 				{
-					normal.x = nx;
-					normal.y = ny;
+					normal.X = nx;
+					normal.Y = ny;
 				}
 				if (minTOE <= maxTOI || minTOE <= 0)
 					return float.MaxValue;
-				nx = c[0].y - c[3].y;
-				ny = c[3].x - c[0].x;
+				nx = c[0].Y - c[3].Y;
+				ny = c[3].X - c[0].X;
 				if (UpdateImpactExitTime(
-						c[0].x, c[0].y, nx, ny,
-						c[1].x - c[0].x, c[1].y - c[0].y, d, -vx, -vy, ref maxTOI, ref minTOE))
+						c[0].X, c[0].Y, nx, ny,
+						c[1].X - c[0].X, c[1].Y - c[0].Y, d, -vx, -vy, ref maxTOI, ref minTOE))
 				{
-					normal.x = nx;
-					normal.y = ny;
+					normal.X = nx;
+					normal.Y = ny;
 				}
 				if (minTOE <= maxTOI || minTOE <= 0)
 					return float.MaxValue;
 
 				// normals of other vs points of this:
-				nx = -d[0].y + d[1].y;
-				ny = -d[1].x + d[0].x;
+				nx = -d[0].Y + d[1].Y;
+				ny = -d[1].X + d[0].X;
 				if (UpdateImpactExitTime(
-						d[0].x, d[0].y, nx, ny,
-						d[3].x - d[0].x, d[3].y - d[0].y, c, vx, vy, ref maxTOI, ref minTOE))
+						d[0].X, d[0].Y, nx, ny,
+						d[3].X - d[0].X, d[3].Y - d[0].Y, c, vx, vy, ref maxTOI, ref minTOE))
 				{
-					normal.x = nx;
-					normal.y = ny;
+					normal.X = nx;
+					normal.Y = ny;
 				}
 				if (minTOE <= maxTOI || minTOE <= 0)
 					return float.MaxValue;
 
-				nx = d[0].y - d[3].y;
-				ny = d[3].x - d[0].x;
+				nx = d[0].Y - d[3].Y;
+				ny = d[3].X - d[0].X;
 				if (UpdateImpactExitTime(
-						d[0].x, d[0].y, nx, ny,
-						d[1].x - d[0].x, d[1].y - d[0].y, c, vx, vy, ref maxTOI, ref minTOE))
+						d[0].X, d[0].Y, nx, ny,
+						d[1].X - d[0].X, d[1].Y - d[0].Y, c, vx, vy, ref maxTOI, ref minTOE))
 				{
-					normal.x = nx;
-					normal.y = ny;
+					normal.X = nx;
+					normal.Y = ny;
 				}
 				if (minTOE <= maxTOI || minTOE <= 0)
 					return float.MaxValue;
 				// normalize the normal when there's an actual collision:
-				float nLen = Mathf.Sqrt(normal.x * normal.x + normal.y * normal.y);
-				normal.x /= nLen;
-				normal.y /= nLen;
-				if (normal.x * vx + normal.y * vy > 0)
+				float nLen = Mathf.Sqrt(normal.X * normal.X + normal.Y * normal.Y);
+				normal.X /= nLen;
+				normal.Y /= nLen;
+				if (normal.X * vx + normal.Y * vy > 0)
 				{
-					normal.x *= -1;
-					normal.y *= -1;
+					normal.X *= -1;
+					normal.Y *= -1;
 				}
 				if (maxTOI >= 0)
 					return maxTOI;
@@ -230,16 +230,16 @@ namespace GXPEngine.Core
 
 			float t, minT, maxT;
 
-			t = ((d[0].x - cx) * nx + (d[0].y - cy) * ny) / dot;
+			t = ((d[0].X - cx) * nx + (d[0].Y - cy) * ny) / dot;
 			maxT = t; minT = t;
 
-			t = ((d[1].x - cx) * nx + (d[1].y - cy) * ny) / dot;
+			t = ((d[1].X - cx) * nx + (d[1].Y - cy) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
-			t = ((d[2].x - cx) * nx + (d[2].y - cy) * ny) / dot;
+			t = ((d[2].X - cx) * nx + (d[2].Y - cy) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
-			t = ((d[3].x - cx) * nx + (d[3].y - cy) * ny) / dot;
+			t = ((d[3].X - cx) * nx + (d[3].Y - cy) * ny) / dot;
 			minT = Math.Min(minT, t); maxT = Math.Max(maxT, t);
 
 			// relative velocity:
@@ -299,19 +299,19 @@ namespace GXPEngine.Core
 				//);
 
 				// normals of this vs points of other:
-				float nx = -c[0].y + c[1].y;
-				float ny = -c[1].x + c[0].x;
+				float nx = -c[0].Y + c[1].Y;
+				float ny = -c[1].X + c[0].X;
 				if (!UpdateCollisionPoint(
-						c[0].x, c[0].y, nx, ny,
-						c[3].x - c[0].x, c[3].y - c[0].y, d,
+						c[0].X, c[0].Y, nx, ny,
+						c[3].X - c[0].X, c[3].Y - c[0].Y, d,
 						true, ref penetrationDepth, ref normal, ref point))
 					return null;
 
-				nx = c[0].y - c[3].y;
-				ny = c[3].x - c[0].x;
+				nx = c[0].Y - c[3].Y;
+				ny = c[3].X - c[0].X;
 				if (!UpdateCollisionPoint(
-					c[0].x, c[0].y, nx, ny,
-					c[1].x - c[0].x, c[1].y - c[0].y, d,
+					c[0].X, c[0].Y, nx, ny,
+					c[1].X - c[0].X, c[1].Y - c[0].Y, d,
 					true, ref penetrationDepth, ref normal, ref point))
 					return null;
 
@@ -319,19 +319,19 @@ namespace GXPEngine.Core
 				//	d[1].x-d[0].x,d[1].y-d[0].y,d[3].x-d[0].x,d[3].y-d[0].y
 				//);
 				// normals of other vs points of this:
-				nx = -d[0].y + d[1].y;
-				ny = -d[1].x + d[0].x;
+				nx = -d[0].Y + d[1].Y;
+				ny = -d[1].X + d[0].X;
 				if (!UpdateCollisionPoint(
-					d[0].x, d[0].y, nx, ny,
-					d[3].x - d[0].x, d[3].y - d[0].y, c,
+					d[0].X, d[0].Y, nx, ny,
+					d[3].X - d[0].X, d[3].Y - d[0].Y, c,
 					false, ref penetrationDepth, ref normal, ref point))
 					return null;
 
-				nx = d[0].y - d[3].y;
-				ny = d[3].x - d[0].x;
+				nx = d[0].Y - d[3].Y;
+				ny = d[3].X - d[0].X;
 				if (!UpdateCollisionPoint(
-					d[0].x, d[0].y, nx, ny,
-					d[1].x - d[0].x, d[1].y - d[0].y, c,
+					d[0].X, d[0].Y, nx, ny,
+					d[1].X - d[0].X, d[1].Y - d[0].Y, c,
 					false, ref penetrationDepth, ref normal, ref point))
 					return null;
 				/*
@@ -367,7 +367,7 @@ namespace GXPEngine.Core
 			float maxT = float.MinValue;
 			for (int i = 0; i < d.Length; i++)
 			{
-				float t = ((d[i].x - cx) * nx + (d[i].y - cy) * ny) / dot;
+				float t = ((d[i].X - cx) * nx + (d[i].Y - cy) * ny) / dot;
 				if (t < minT)
 				{
 					minT = t;
@@ -408,8 +408,8 @@ namespace GXPEngine.Core
 			if (updateNormal)
 			{
 				float len = invertNormal ? -Mathf.Sqrt(nx * nx + ny * ny) : Mathf.Sqrt(nx * nx + ny * ny);
-				normal.x = nx / len;
-				normal.y = ny / len;
+				normal.X = nx / len;
+				normal.Y = ny / len;
 				//Console.WriteLine ("NEW BEST");
 			}
 			else

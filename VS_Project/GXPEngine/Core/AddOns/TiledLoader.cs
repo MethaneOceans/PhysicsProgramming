@@ -263,8 +263,8 @@ namespace TiledMapParser
 			Vector2 newCenter = spr.TransformPoint((newOriginRelativeX - oldOriginX) * imageWidth, (newOriginRelativeY - oldOriginY) * imageHeight);
 			//Console.WriteLine("Setting origin. x={0} y={1} w={2} h={3} r={4} tx={5} ty={6}. nO={7},{8}",
 			//	spr.x,spr.y,spr.width,spr.height,spr.rotation,newCenter.x,newCenter.y,newOriginRelativeX,newOriginRelativeY);
-			spr.x = newCenter.x;
-			spr.y = newCenter.y;
+			spr.x = newCenter.X;
+			spr.y = newCenter.Y;
 			spr.SetOrigin(newOriginRelativeX * imageWidth, newOriginRelativeY * imageHeight);
 
 			spr.parent = parent;

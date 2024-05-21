@@ -194,10 +194,10 @@ namespace GXPEngine
 				float minY = float.MaxValue;
 				for (int i = 0; i < 4; i++)
 				{
-					if (bounds[i].x > maxX) maxX = bounds[i].x;
-					if (bounds[i].x < minX) minX = bounds[i].x;
-					if (bounds[i].y > maxY) maxY = bounds[i].y;
-					if (bounds[i].y < minY) minY = bounds[i].y;
+					if (bounds[i].X > maxX) maxX = bounds[i].X;
+					if (bounds[i].X < minX) minX = bounds[i].X;
+					if (bounds[i].Y > maxY) maxY = bounds[i].Y;
+					if (bounds[i].Y < minY) minY = bounds[i].Y;
 				}
 				bool test = (maxX < game.RenderRange.left) || (maxY < game.RenderRange.top) || (minX >= game.RenderRange.right) || (minY >= game.RenderRange.bottom);
 				if (test == false)

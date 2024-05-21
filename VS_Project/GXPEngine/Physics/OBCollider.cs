@@ -56,8 +56,8 @@ namespace GXPEngine.Physics
 			LastCollision = new CollisionInfo();
 
 			// Construct corner offsets
-			float hWidth = Size.x / 2f;
-			float hHeight = Size.y / 2f;
+			float hWidth = Size.X / 2f;
+			float hHeight = Size.Y / 2f;
 
 			Vector2 cornerA = new Vector2(hWidth, hHeight);
 			Vector2 cornerB = new Vector2(-hWidth, hHeight);
@@ -218,15 +218,15 @@ namespace GXPEngine.Physics
 			Vector2 rDirection = ray.Direction.RotatedDeg(-Angle);
 
 			// Horizontal check
-			float tA = (-Size.x / 2f - rOrigin.x) / rDirection.x;
-			float tB = (Size.x / 2f - rOrigin.x) / rDirection.x;
+			float tA = (-Size.X / 2f - rOrigin.X) / rDirection.X;
+			float tB = (Size.X / 2f - rOrigin.X) / rDirection.X;
 			float tNearHori = Min(tA, tB);
 			float tFarHori = Max(tA, tB);
 			if (tFarHori < 0) return -1;
 
 			// Vertical check
-			tA = (-Size.y / 2f - rOrigin.y) / rDirection.y;
-			tB = (Size.y / 2f - rOrigin.y) / rDirection.y;
+			tA = (-Size.Y / 2f - rOrigin.Y) / rDirection.Y;
+			tB = (Size.Y / 2f - rOrigin.Y) / rDirection.Y;
 			float tNearVert = Min(tA, tB);
 			float tFarVert = Max(tA, tB);
 			if (tFarVert < 0) return -1;
@@ -243,11 +243,11 @@ namespace GXPEngine.Physics
 		public override Vector2 NormalAt(Vector2 point)
 		{
 			point = (point - Position).RotatedDeg(-Angle);
-			point.x *= Size.y / 2f;
-			point.y *= Size.x / 2f;
+			point.X *= Size.Y / 2f;
+			point.Y *= Size.X / 2f;
 			point = point.RotatedDeg(-45);
-			bool right = point.x > 0;
-			bool top = point.y > 0;
+			bool right = point.X > 0;
+			bool top = point.Y > 0;
 
 			if (right && top) return Normals[0];
 			else if (!right && top) return Normals[1];
@@ -264,7 +264,7 @@ namespace GXPEngine.Physics
 			{
 				Vector2 a = Position + (Corners[i] + Corners[(i + 1) % Corners.Length]) / 2f;
 				Vector2 b = a + Normals[i] * 50;
-				ed.Line(a.x, a.y, b.x, b.y);
+				ed.Line(a.X, a.Y, b.X, b.Y);
 			}
 		}
 		public void DrawCorners(EasyDraw ed)
@@ -272,7 +272,7 @@ namespace GXPEngine.Physics
 			foreach (Vector2 corner in Corners)
 			{
 				Vector2 a = Position + corner;
-				ed.Ellipse(a.x, a.y, 10, 10);
+				ed.Ellipse(a.X, a.Y, 10, 10);
 			}
 		}
 		public void DrawOverlapOnAxis(EasyDraw ed, Vector2 axis)
@@ -284,7 +284,7 @@ namespace GXPEngine.Physics
 
 			Vector2 a = axis * min;
 			Vector2 b = axis * max;
-			ed.Line(a.x, a.y, b.x, b.y);
+			ed.Line(a.X, a.Y, b.X, b.Y);
 		}
 
 		protected override void Invalidate()

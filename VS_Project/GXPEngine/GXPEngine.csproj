@@ -41,97 +41,79 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Visual\NineSlice.cs" />
-    <Compile Include="Utils\MathUtils.cs" />
+    <Folder Include="Assets\Sounds\" />
+    <Folder Include="Assets\Textures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Control\Scene.cs" />
+    <Compile Include="Control\Scenes\TestScene0.cs" />
+    <Compile Include="Control\Scenes\TestScene1.cs" />
+    <Compile Include="Core\AddOns\Settings.cs" />
+    <Compile Include="Core\AddOns\TiledLoader.cs" />
+    <Compile Include="Core\AddOns\TiledMapParser.cs" />
+    <Compile Include="Core\Hierarchy\Game.cs" />
+    <Compile Include="Core\Hierarchy\GameObject.cs" />
+    <Compile Include="Core\Hierarchy\Pivot.cs" />
+    <Compile Include="Core\Hierarchy\Transformable.cs" />
+    <Compile Include="Core\Input\MouseHandler.cs" />
+    <Compile Include="Core\Managers\CollisionManager.cs" />
+    <Compile Include="Core\Managers\HierarchyManager.cs" />
+    <Compile Include="Core\Managers\UpdateManager.cs" />
+    <Compile Include="Core\Math\Mathf.cs" />
+    <Compile Include="Core\Physics\BoxCollider.cs" />
+    <Compile Include="Core\Physics\Collider.cs" />
+    <Compile Include="Core\Physics\Collision.cs" />
+    <Compile Include="Core\Physics\Rectangle.cs" />
+    <Compile Include="Core\Rendering\BlendMode.cs" />
+    <Compile Include="Core\Rendering\Camera.cs" />
+    <Compile Include="Core\Rendering\Canvas.cs" />
+    <Compile Include="Core\Rendering\GL.cs" />
+    <Compile Include="Core\Rendering\GLContext.cs" />
+    <Compile Include="Core\Rendering\Window.cs" />
+    <Compile Include="Core\Sound\FMOD\FMOD.cs" />
+    <Compile Include="Core\Sound\FMOD\FMODSoundSystem.cs" />
+    <Compile Include="Core\Sound\SoLoud\Soloud.cs" />
+    <Compile Include="Core\Sound\SoLoud\SoloudSoundSystem.cs" />
+    <Compile Include="Core\Sound\Sound.cs" />
+    <Compile Include="Core\Sound\SoundChannel.cs" />
+    <Compile Include="Core\Sound\SoundSystem.cs" />
+    <Compile Include="Core\Utils\Input.cs" />
+    <Compile Include="Core\Utils\Key.cs" />
+    <Compile Include="Core\Utils\Time.cs" />
+    <Compile Include="Core\Utils\Utils.cs" />
+    <Compile Include="Core\Math\Vector2.cs" />
+    <Compile Include="Core\Visual\AnimationSprite.cs" />
+    <Compile Include="Core\Visual\EasyDraw.cs" />
+    <Compile Include="Core\Visual\NineSlice.cs" />
+    <Compile Include="Core\Visual\Sprite.cs" />
+    <Compile Include="Core\Visual\SpriteBatch.cs" />
+    <Compile Include="Core\Visual\Texture2D.cs" />
+    <Compile Include="Debugging\Gizmos.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MathUtils.cs" />
+    <Compile Include="MyGame.cs" />
+    <Compile Include="Physics\ACollider.cs" />
     <Compile Include="Physics\CircleCollider.cs" />
     <Compile Include="Physics\CollisionInfo.cs" />
-    <Compile Include="Physics\PhysicsManager.cs" />
-    <Compile Include="Primitives\Circle.cs" />
-    <Compile Include="Control\Scene.cs" />
-    <Compile Include="Control\SceneManager.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="AddOns\Gizmos.cs" />
-    <Compile Include="Visual\SpriteBatch.cs" />
-    <Compile Include="AddOns\TiledLoader.cs" />
-    <Compile Include="MyGame.cs" />
-    <Compile Include="Core\Canvas.cs" />
-    <Compile Include="Core\Game.cs" />
-    <Compile Include="Core\GameObject.cs" />
-    <Compile Include="Sound\Sound.cs" />
-    <Compile Include="Sound\SoundChannel.cs" />
-    <Compile Include="Visual\Sprite.cs" />
-    <Compile Include="Core\BlendMode.cs" />
-    <Compile Include="Core\BoxCollider.cs" />
-    <Compile Include="Core\Collider.cs" />
-    <Compile Include="Core\GLContext.cs" />
-    <Compile Include="Core\Rectangle.cs" />
-    <Compile Include="Visual\Texture2D.cs" />
-    <Compile Include="Core\Transformable.cs" />
-    <Compile Include="Core\Vector2.cs" />
-    <Compile Include="Sound\FMOD\FMOD.cs" />
-    <Compile Include="Managers\CollisionManager.cs" />
-    <Compile Include="Managers\UpdateManager.cs" />
-    <Compile Include="OpenGL\GL.cs" />
-    <Compile Include="Core\Pivot.cs" />
-    <Compile Include="Visual\AnimationSprite.cs" />
-    <Compile Include="Utils\Mathf.cs" />
-    <Compile Include="Utils\Input.cs" />
-    <Compile Include="Utils\Key.cs" />
-    <Compile Include="AddOns\MouseHandler.cs" />
-    <Compile Include="Utils\Time.cs" />
-    <Compile Include="Utils\Utils.cs" />
-    <Compile Include="Core\Camera.cs" />
-    <Compile Include="Managers\HierarchyManager.cs" />
-    <Compile Include="AddOns\Settings.cs" />
-    <Compile Include="AddOns\TiledMapParser.cs" />
-    <Compile Include="Core\Window.cs" />
-    <Compile Include="Visual\EasyDraw.cs" />
-    <Compile Include="Core\Collision.cs" />
-    <Compile Include="Sound\SoundSystem.cs" />
-    <Compile Include="Sound\FMOD\FMODSoundSystem.cs" />
-    <Compile Include="Sound\SoLoud\Soloud.cs" />
-    <Compile Include="Sound\SoLoud\SoloudSoundSystem.cs" />
-    <Compile Include="Physics\ACollider.cs" />
     <Compile Include="Physics\OBCollider.cs" />
-    <Compile Include="Primitives\Box.cs" />
-    <Compile Include="Physics\Ray.cs" />
+    <Compile Include="Physics\PhysicsManager.cs" />
     <Compile Include="Physics\PhysicsObject.cs" />
+    <Compile Include="Physics\Primitives\Box.cs" />
+    <Compile Include="Physics\Primitives\Circle.cs" />
+    <Compile Include="Physics\Ray.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="lib\libglfw-64.dylib">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\libglfw.so">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\libsoloud-64.dylib">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="lib\libglfw-64.dylib" />
+    <None Include="lib\libglfw.so" />
+    <None Include="lib\libsoloud-64.dylib" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="lib\COPYING.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\Fmod.License.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\fmodex.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\glfw.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\soloud.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\soloud_x64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Sounds\" />
-    <Folder Include="Assets\Textures\" />
-    <Folder Include="Scenes\" />
+    <Content Include="lib\COPYING.txt" />
+    <Content Include="lib\Fmod.License.txt" />
+    <Content Include="lib\fmodex.dll" />
+    <Content Include="lib\glfw.dll" />
+    <Content Include="lib\soloud.dll" />
+    <Content Include="lib\soloud_x64.dll" />
   </ItemGroup>
 </Project>
