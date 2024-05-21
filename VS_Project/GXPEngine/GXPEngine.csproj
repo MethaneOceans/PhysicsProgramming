@@ -103,6 +103,9 @@
     <Compile Include="Physics\Ray.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="app.config" />
     <None Include="lib\libglfw-64.dylib" />
     <None Include="lib\libglfw.so" />

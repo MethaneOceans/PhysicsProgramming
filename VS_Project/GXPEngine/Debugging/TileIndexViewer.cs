@@ -48,6 +48,11 @@ namespace GXPEngine.Debugging
 			{
 				Console.WriteLine("Tile index: {0}", tileY * cols + tileX);
 			}
+
+			if (Input.GetKeyDown(Key.F2))
+			{
+				Previous();
+			}
 		}
 	}
 }
