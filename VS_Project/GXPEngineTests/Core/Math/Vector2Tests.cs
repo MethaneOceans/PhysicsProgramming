@@ -359,7 +359,7 @@ namespace Tests
 			}
 			int elapsedTime = (int)sw.ElapsedTicks;
 			sw.Stop();
-			
+
 			Debug.WriteLine("Addition of {0} floats took {1} ticks", n, elapsedTime);
 			sw.Reset();
 

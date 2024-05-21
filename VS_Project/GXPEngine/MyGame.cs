@@ -1,9 +1,8 @@
 using GXPEngine;
-using GXPEngine.Control;
+using GXPEngine.Assets;
 using GXPEngine.Debugging;
 using System;
 using System.Drawing;
-using GXPEngine.Assets;
 //using GXPEngine.Scenes;
 
 internal class MyGame : Game

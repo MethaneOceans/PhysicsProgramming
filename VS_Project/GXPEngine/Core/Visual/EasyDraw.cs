@@ -12,15 +12,15 @@ namespace GXPEngine
 	/// </summary>
 	public class EasyDraw : Canvas
 	{
-		static Font defaultFont = new Font("Noto Sans", 15);
+		static readonly Font defaultFont = new Font("Noto Sans", 15);
 
 		public CenterMode HorizontalTextAlign = CenterMode.Min;
 		public CenterMode VerticalTextAlign = CenterMode.Max;
 		public CenterMode HorizontalShapeAlign = CenterMode.Center;
 		public CenterMode VerticalShapeAlign = CenterMode.Center;
-		public Font font { get; protected set; }
-		public Pen pen { get; protected set; }
-		public SolidBrush brush { get; protected set; }
+		public Font Font { get; protected set; }
+		public Pen Pen { get; protected set; }
+		public SolidBrush Brush { get; protected set; }
 		protected bool _stroke = true;
 		protected bool _fill = true;
 
@@ -57,9 +57,9 @@ namespace GXPEngine
 
 		void Initialize()
 		{
-			pen = new Pen(Color.White, 1);
-			brush = new SolidBrush(Color.White);
-			font = defaultFont;
+			Pen = new Pen(Color.White, 1);
+			Brush = new SolidBrush(Color.White);
+			Font = defaultFont;
 			if (!game.PixelArt)
 			{
 				graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit; //AntiAlias;
@@ -79,7 +79,7 @@ namespace GXPEngine
 		/// <param name="newFont">The new font (see also Utils.LoadFont)</param>
 		public void TextFont(Font newFont)
 		{
-			font = newFont;
+			Font = newFont;
 		}
 
 		/// <summary>
@@ -90,7 +90,7 @@ namespace GXPEngine
 		/// <param name="style">font style (e.g. FontStyle.Italic|FontStyle.Bold )</param>
 		public void TextFont(string fontName, float pointSize, FontStyle style = FontStyle.Regular)
 		{
-			font = new Font(fontName, pointSize, style);
+			Font = new Font(fontName, pointSize, style);
 		}
 
 		/// <summary>
@@ -99,7 +99,7 @@ namespace GXPEngine
 		/// <param name="pointSize">The font size in points</param>
 		public void TextSize(float pointSize)
 		{
-			font = new Font(font.OriginalFontName, pointSize, font.Style);
+			Font = new Font(Font.OriginalFontName, pointSize, Font.Style);
 		}
 
 		//////////// Setting Alignment for text, ellipses and rects
@@ -147,7 +147,7 @@ namespace GXPEngine
 		/// <param name="alpha">the opacity of the outline (from 0=transparent to 255=opaque)</param>
 		public void Stroke(Color newColor, int alpha = 255)
 		{
-			pen.Color = Color.FromArgb(alpha, newColor);
+			Pen.Color = Color.FromArgb(alpha, newColor);
 			_stroke = true;
 		}
 
@@ -158,7 +158,7 @@ namespace GXPEngine
 		/// <param name="alpha">the opacity of the outline (from 0=transparent to 255=opaque)</param>
 		public void Stroke(int grayScale, int alpha = 255)
 		{
-			pen.Color = Color.FromArgb(alpha, grayScale, grayScale, grayScale);
+			Pen.Color = Color.FromArgb(alpha, grayScale, grayScale, grayScale);
 			_stroke = true;
 		}
 
@@ -171,7 +171,7 @@ namespace GXPEngine
 		/// <param name="alpha">The opacity of the outline (from 0=transparent to 255=opaque)</param>
 		public void Stroke(int red, int green, int blue, int alpha = 255)
 		{
-			pen.Color = Color.FromArgb(alpha, red, green, blue);
+			Pen.Color = Color.FromArgb(alpha, red, green, blue);
 			_stroke = true;
 		}
 
@@ -181,7 +181,7 @@ namespace GXPEngine
 		/// <param name="width">The width (in pixels)</param>
 		public void StrokeWeight(float width)
 		{
-			pen.Width = width;
+			Pen.Width = width;
 			_stroke = true;
 		}
 
@@ -202,7 +202,7 @@ namespace GXPEngine
 		/// <param name="alpha">the fill opacity (from 0=transparent to 255=opaque)</param>
 		public void Fill(Color newColor, int alpha = 255)
 		{
-			brush.Color = Color.FromArgb(alpha, newColor);
+			Brush.Color = Color.FromArgb(alpha, newColor);
 			_fill = true;
 		}
 
@@ -213,7 +213,7 @@ namespace GXPEngine
 		/// <param name="alpha">the fill opacity (from 0=transparent to 255=opaque)</param>
 		public void Fill(int grayScale, int alpha = 255)
 		{
-			brush.Color = Color.FromArgb(alpha, grayScale, grayScale, grayScale);
+			Brush.Color = Color.FromArgb(alpha, grayScale, grayScale, grayScale);
 			_fill = true;
 		}
 
@@ -226,7 +226,7 @@ namespace GXPEngine
 		/// <param name="alpha">The fill opacity (from 0=transparent to 255=opaque)</param>
 		public void Fill(int red, int green, int blue, int alpha = 255)
 		{
-			brush.Color = Color.FromArgb(alpha, red, green, blue);
+			Brush.Color = Color.FromArgb(alpha, red, green, blue);
 			_fill = true;
 		}
 
@@ -282,8 +282,7 @@ namespace GXPEngine
 		/// <param name="y">The y coordinate to draw the text, using canvas (pixel) coordinates</param>
 		public void Text(string text, float x, float y)
 		{
-			float twidth, theight;
-			TextDimensions(text, out twidth, out theight);
+			TextDimensions(text, out float twidth, out float theight);
 			if (HorizontalTextAlign == CenterMode.Max)
 			{
 				x -= twidth;
@@ -300,7 +299,7 @@ namespace GXPEngine
 			{
 				y -= theight / 2;
 			}
-			graphics.DrawString(text, font, brush, x, y); //left+BoundaryPadding/2,top+BoundaryPadding/2);
+			graphics.DrawString(text, Font, Brush, x, y); //left+BoundaryPadding/2,top+BoundaryPadding/2);
 		}
 
 		/// <summary>
@@ -346,7 +345,7 @@ namespace GXPEngine
 		/// <returns>width in pixels</returns>
 		public float TextWidth(string text)
 		{
-			SizeF size = graphics.MeasureString(text, font);
+			SizeF size = graphics.MeasureString(text, Font);
 			return size.Width;
 		}
 
@@ -357,7 +356,7 @@ namespace GXPEngine
 		/// <returns>height in pixels</returns>
 		public float TextHeight(string text)
 		{
-			SizeF size = graphics.MeasureString(text, font);
+			SizeF size = graphics.MeasureString(text, Font);
 			return size.Height;
 		}
 
@@ -369,7 +368,7 @@ namespace GXPEngine
 		/// <param name="height">height in pixels</param>
 		public void TextDimensions(string text, out float width, out float height)
 		{
-			SizeF size = graphics.MeasureString(text, font);
+			SizeF size = graphics.MeasureString(text, Font);
 			width = size.Width;
 			height = size.Height;
 		}
@@ -389,11 +388,11 @@ namespace GXPEngine
 			ShapeAlign(ref x, ref y, width, height);
 			if (_fill)
 			{
-				graphics.FillRectangle(brush, x, y, width, height);
+				graphics.FillRectangle(Brush, x, y, width, height);
 			}
 			if (_stroke)
 			{
-				graphics.DrawRectangle(pen, x, y, width, height);
+				graphics.DrawRectangle(Pen, x, y, width, height);
 			}
 		}
 
@@ -410,11 +409,11 @@ namespace GXPEngine
 			ShapeAlign(ref x, ref y, width, height);
 			if (_fill)
 			{
-				graphics.FillEllipse(brush, x, y, width, height);
+				graphics.FillEllipse(Brush, x, y, width, height);
 			}
 			if (_stroke)
 			{
-				graphics.DrawEllipse(pen, x, y, width, height);
+				graphics.DrawEllipse(Pen, x, y, width, height);
 			}
 		}
 
@@ -434,11 +433,11 @@ namespace GXPEngine
 			ShapeAlign(ref x, ref y, width, height);
 			if (_fill)
 			{
-				graphics.FillPie(brush, x, y, width, height, startAngleDegrees, sweepAngleDegrees);
+				graphics.FillPie(Brush, x, y, width, height, startAngleDegrees, sweepAngleDegrees);
 			}
 			if (_stroke)
 			{
-				graphics.DrawArc(pen, x, y, width, height, startAngleDegrees, sweepAngleDegrees);
+				graphics.DrawArc(Pen, x, y, width, height, startAngleDegrees, sweepAngleDegrees);
 			}
 		}
 
@@ -453,7 +452,7 @@ namespace GXPEngine
 		{
 			if (_stroke)
 			{
-				graphics.DrawLine(pen, x1, y1, x2, y2);
+				graphics.DrawLine(Pen, x1, y1, x2, y2);
 			}
 		}
 
@@ -495,11 +494,11 @@ namespace GXPEngine
 		{
 			if (_fill)
 			{
-				graphics.FillPolygon(brush, pts);
+				graphics.FillPolygon(Brush, pts);
 			}
 			if (_stroke)
 			{
-				graphics.DrawPolygon(pen, pts);
+				graphics.DrawPolygon(Pen, pts);
 			}
 		}
 

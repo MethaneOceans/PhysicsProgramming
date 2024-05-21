@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GXPEngine.Assets
 {
@@ -29,10 +25,9 @@ namespace GXPEngine.Assets
 		public static string GetTexturePath(string filename, int maxDepth = 2) => FindFile(filename, TexturesPath, maxDepth);
 		public static string GetAudioPath(string filename, int maxDepth = 2) => FindFile(filename, AudioPath, maxDepth);
 
-
 		private static string FindFile(string filename, string directoryPath, int maxDepth, int currentDepth = 0)
 		{
-			if (File.Exists(Path.Combine(directoryPath, filename)))	return Path.Combine(directoryPath, filename);
+			if (File.Exists(Path.Combine(directoryPath, filename))) return Path.Combine(directoryPath, filename);
 			else if (currentDepth <= maxDepth)
 			{
 				string[] subdirs = Directory.GetDirectories(directoryPath);

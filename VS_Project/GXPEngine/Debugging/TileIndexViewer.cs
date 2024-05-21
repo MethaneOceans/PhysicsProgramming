@@ -6,18 +6,15 @@ namespace GXPEngine.Debugging
 {
 	internal class TileIndexViewer : Scene
 	{
-		Sprite sprite;
-		EasyDraw selectionBox;
-
-		int tileWidth;
-		int tileHeight;
-		int cols;
-		int rows;
+		readonly Sprite sprite;
+		readonly EasyDraw selectionBox;
+		readonly int tileWidth;
+		readonly int tileHeight;
+		readonly int cols;
 
 		public TileIndexViewer(string tileSheetPath, int cols, int rows)
 		{
 			this.cols = cols;
-			this.rows = rows;
 
 			sprite = new Sprite(tileSheetPath);
 			int multipWidth = game.Width / sprite.width;
