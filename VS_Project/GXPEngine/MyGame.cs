@@ -1,21 +1,18 @@
-using GXPEngine;                                // GXPEngine contains the engine
+using GXPEngine;
 using GXPEngine.Control;
-using GXPEngine.Control.Scenes;
-using System;                                   // System contains a lot of default C# libraries 
+using GXPEngine.Debugging;
+using System;
 using System.Drawing;
-//using GXPEngine.Scenes;                           // System.Drawing contains drawing tools such as Color definitions
+using GXPEngine.Assets;
+//using GXPEngine.Scenes;
 
-/// <summary>
-/// This MyGame class only contains the scenemanager and setup for the scenemanager.
-/// The only available scenes are test scenes
-/// </summary>
 internal class MyGame : Game
 {
 	private bool showfps;
 	private readonly EasyDraw fpsCounter;
 
 	public float SoundVolume = 0.05f;
-	public MyGame() : base(1600, 900, pFullScreen: false, pPixelArt: false)
+	public MyGame() : base(1600, 900, pFullScreen: false, pPixelArt: true)
 	{
 		TargetFps = int.MaxValue;
 
@@ -25,6 +22,8 @@ internal class MyGame : Game
 		AddChild(fpsCounter);
 
 		Console.WriteLine("MyGame initialized");
+
+		Console.WriteLine(Assets.GetTexturePath("Dungeon_Tileset.png"));
 	}
 
 	private void Update()
@@ -45,6 +44,11 @@ internal class MyGame : Game
 		{
 			showfps = !showfps;
 			fpsCounter.visible = showfps;
+		}
+
+		if (Input.GetKeyDown(Key.F2))
+		{
+			new TileIndexViewer(Assets.GetTexturePath("Dungeon_Tileset.png"), 10, 10).Load();
 		}
 	}
 	static void Main()
