@@ -10,7 +10,8 @@ namespace GXPEngine.Control
 
 		public virtual void Load()
 		{
-			if (Current != null) throw new Exception("Cannot load scene if another scene is already running");
+			//if (Current != null) throw new Exception("Cannot load scene if another scene is already running");
+			Current?.Unload();
 			game.AddChild(this);
 			Current = this;
 		}
