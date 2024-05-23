@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using static GXPEngine.Mathf;
 
 namespace GXPEngine.Dungeons
 {
@@ -82,13 +83,29 @@ namespace GXPEngine.Dungeons
 			bool splitSucceeded = SplitRect(node.Self, out (Rectangle a, Rectangle b)? areas);
 			if (!splitSucceeded) return false;
 
-			node.ChildA = new BinaryTreeNode<Rectangle>(areas.Value.a, node);
-			node.ChildB = new BinaryTreeNode<Rectangle>(areas.Value.b, node);
+			Rectangle areaA = areas.Value.a;
+			Rectangle areaB = areas.Value.b;
+
+			node.ChildA = new BinaryTreeNode<Rectangle>(areaA, node);
+			node.ChildB = new BinaryTreeNode<Rectangle>(areaB, node);
 
 			if (depth < maxDepth)
 			{
 				SplitRectNode(node.ChildA, maxDepth, depth + 1);
 				SplitRectNode(node.ChildB, maxDepth, depth + 1);
+			}
+
+			if (areaA.Left == areaB.Left)
+			{
+				// Horizontally aligned
+				Point doorPosition = new Point(areaA.Left + rng.Next(areaA.Width - 2) + 1, areaA.Bottom - 1);
+				tiles[doorPosition.X, doorPosition.Y] = Tile.Empty;
+			}
+			else
+			{
+				// Vertically aligned
+				Point doorPosition = new Point(areaA.Right - 1, areaA.Top + rng.Next(areaA.Height - 2) + 1);
+				tiles[doorPosition.X, doorPosition.Y] = Tile.Empty;
 			}
 
 			return true;
