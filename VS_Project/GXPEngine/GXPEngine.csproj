@@ -89,7 +89,11 @@
     <Compile Include="Core\Visual\Texture2D.cs" />
     <Compile Include="Debugging\Gizmos.cs" />
     <Compile Include="Debugging\TileIndexViewer.cs" />
+    <Compile Include="Dungeons\BinaryTreeNode.cs" />
     <Compile Include="Dungeons\Dungeon.cs" />
+    <Compile Include="Dungeons\DungeonTest.cs" />
+    <Compile Include="Dungeons\SufficientDungeon.cs" />
+    <Compile Include="Dungeons\Tile.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapTest.cs" />
@@ -110,9 +114,15 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="app.config" />
-    <None Include="lib\libglfw-64.dylib" />
-    <None Include="lib\libglfw.so" />
-    <None Include="lib\libsoloud-64.dylib" />
+    <None Include="lib\libglfw-64.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lib\libglfw.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lib\libsoloud-64.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Textures\2D Pixel Dungeon Asset Pack\character and tileset\demonstration.png" />
@@ -299,11 +309,23 @@
     <Content Include="Assets\Textures\2D Pixel Dungeon Asset Pack\items and trap_animation\torch\torch_2.png" />
     <Content Include="Assets\Textures\2D Pixel Dungeon Asset Pack\items and trap_animation\torch\torch_3.png" />
     <Content Include="Assets\Textures\2D Pixel Dungeon Asset Pack\items and trap_animation\torch\torch_4.png" />
-    <Content Include="lib\COPYING.txt" />
-    <Content Include="lib\Fmod.License.txt" />
-    <Content Include="lib\fmodex.dll" />
-    <Content Include="lib\glfw.dll" />
-    <Content Include="lib\soloud.dll" />
-    <Content Include="lib\soloud_x64.dll" />
+    <Content Include="lib\COPYING.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\Fmod.License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\fmodex.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\glfw.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\soloud.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\soloud_x64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
