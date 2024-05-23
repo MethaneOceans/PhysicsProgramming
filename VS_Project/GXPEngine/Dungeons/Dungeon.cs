@@ -7,10 +7,13 @@ namespace GXPEngine.Dungeons
 	internal class Dungeon : GameObject
 	{
 		protected const int MIN_ROOM_SIZE = 7;
+		protected const int MIN_AREA_SIZE = MIN_ROOM_SIZE + 2;
 
 		protected Size size;
 		protected Tile[,] tiles;
 		protected Random rng;
+
+		//public List<Room> rooms { get; protected set; }
 
 		public Dungeon(Size size)
 		{
@@ -34,6 +37,7 @@ namespace GXPEngine.Dungeons
 				}
 			}
 		}
+
 		// Clears the dungeon with a specific tile type (default is wall)
 		protected void Clear(Tile clearTile = Tile.Wall)
 		{

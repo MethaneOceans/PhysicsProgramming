@@ -25,63 +25,65 @@ namespace GXPEngine.Dungeons
 			}
 		}
 
-		private (bool horizontal, bool vertical) CanSplit(Rectangle area)
+		private bool SplitRect(Rectangle area, out (Rectangle a, Rectangle b)? subAreas)
 		{
-			int minSize = 2 * MIN_ROOM_SIZE + 3;
-			return (area.Size.Width > minSize, area.Size.Height > minSize);
-		}
-		private bool SplitRectNode(BinaryTreeNode<Rectangle> node, int maxDepth = 2, int depth = 0)
-		{
-			Rectangle root = node.Self;
+			subAreas = null;
 
-			// Check if node can be split
-			(bool horizontal, bool vertical) canSplit = CanSplit(node.Self);
+			(bool horizontal, bool vertical) canSplit = CanSplit(area);
 			Rectangle areaA;
 			Rectangle areaB;
+			SplitMode splitMode;
 
+			// Sets the splitmode according to how an area can be split
 			if (canSplit.horizontal && canSplit.vertical)
 			{
-				// Pick random axis to split
-				int axis = rng.Next() % 2;
-				if (axis == 0)
+				// Split along longest dimension or random if they are equal
+				if (area.Width > area.Height)
 				{
-					// Split horizontally
-					int splitVal = SplitValue(root.Left, root.Right);
-					areaA = new Rectangle(root.Left, root.Top, splitVal - root.Left, root.Height);
-					areaB = new Rectangle(areaA.Right - 1, root.Top, root.Width - areaA.Width + 1, root.Height);
+					splitMode = SplitMode.horizontal;
+				}
+				else if (area.Height > area.Width)
+				{
+					splitMode = SplitMode.vertical;
 				}
 				else
 				{
-					// Split vertically
-					int splitVal = SplitValue(root.Top, root.Bottom);
-					areaA = new Rectangle(root.Left, root.Top, root.Width, splitVal - root.Top);
-					areaB = new Rectangle(root.Left, areaA.Bottom - 1, root.Width, root.Height - areaA.Height + 1);
+					// Pick random axis to split
+					int axis = rng.Next() % 2;
+					if (axis == 0) splitMode = SplitMode.horizontal;
+					else splitMode = SplitMode.vertical;
 				}
 			}
-			else if (canSplit.horizontal)
-			{
-				// Split horizontally
-				int splitVal = SplitValue(root.Left, root.Right);
-				areaA = new Rectangle(root.Left, root.Top, splitVal - root.Left, root.Height);
-				areaB = new Rectangle(areaA.Right - 1, root.Top, root.Width - areaA.Width + 1, root.Height);
-			}
-			else if (canSplit.vertical)
-			{
-				// Split vertically
-				int splitVal = SplitValue(root.Top, root.Bottom);
-				areaA = new Rectangle(root.Left, root.Top, root.Width, splitVal - root.Top);
-				areaB = new Rectangle(root.Left, areaA.Bottom - 1, root.Width, root.Height - areaA.Height + 1);
-			}
+			else if (canSplit.horizontal) splitMode = SplitMode.horizontal;
+			else if (canSplit.vertical) splitMode = SplitMode.vertical;
+			// Area cannot be split, return false indicating that the split operation failed
 			else return false;
 
-			node.ChildA = new BinaryTreeNode<Rectangle>(areaA)
+			if (splitMode == SplitMode.horizontal)
 			{
-				Parent = node,
-			};
-			node.ChildB = new BinaryTreeNode<Rectangle>(areaB)
+				// Split horizontally
+				int splitVal = rng.Next(MIN_AREA_SIZE, area.Width - MIN_AREA_SIZE);
+				areaA = new Rectangle(area.Left, area.Top, splitVal, area.Height);
+				areaB = new Rectangle(area.Left + splitVal - 1, area.Top, area.Width - splitVal + 1, area.Height);
+			}
+			else
 			{
-				Parent = node,
-			};
+				// Split vertically
+				int splitVal = rng.Next(MIN_AREA_SIZE, area.Height - MIN_AREA_SIZE);
+				areaA = new Rectangle(area.Left, area.Top, area.Width, splitVal);
+				areaB = new Rectangle(area.Left, area.Top + splitVal - 1, area.Width, area.Height - splitVal + 1);
+			}
+
+			subAreas = (areaA, areaB);
+			return true;
+		}
+		private bool SplitRectNode(BinaryTreeNode<Rectangle> node, int maxDepth = 2, int depth = 0)
+		{
+			bool splitSucceeded = SplitRect(node.Self, out (Rectangle a, Rectangle b)? areas);
+			if (!splitSucceeded) return false;
+
+			node.ChildA = new BinaryTreeNode<Rectangle>(areas.Value.a, node);
+			node.ChildB = new BinaryTreeNode<Rectangle>(areas.Value.b, node);
 
 			if (depth < maxDepth)
 			{
@@ -92,6 +94,17 @@ namespace GXPEngine.Dungeons
 			return true;
 		}
 
-		private int SplitValue(int roomMinBound, int roomMaxBound) => rng.Next(roomMinBound + MIN_ROOM_SIZE, roomMaxBound - MIN_ROOM_SIZE);
+		// Enum for better readability of BSP generation
+		private enum SplitMode
+		{
+			vertical,
+			horizontal,
+		}
+		// Checks if an area is big enough to be split in either direction
+		private (bool horizontal, bool vertical) CanSplit(Rectangle area)
+		{
+			int minSize = 2 * MIN_AREA_SIZE + 1;
+			return (area.Size.Width > minSize, area.Size.Height > minSize);
+		}
 	}
 }
