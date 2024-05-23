@@ -22,7 +22,8 @@ namespace GXPEngine.Dungeons
 			List<Rectangle> leafAreas = areaTopNode.Leaves;
 			foreach (Rectangle leaf in leafAreas)
 			{
-				FillRect(new Rectangle(leaf.X + 1, leaf.Y + 1, leaf.Width - 2, leaf.Height - 2));
+				const int padding = 2;
+				FillRect(new Rectangle(leaf.X + padding, leaf.Y + padding, leaf.Width - 2 * padding, leaf.Height - 2 * padding));
 			}
 		}
 
@@ -98,14 +99,32 @@ namespace GXPEngine.Dungeons
 			if (areaA.Left == areaB.Left)
 			{
 				// Horizontally aligned
+				//	  A
+				//	  |
+				//	  B
+
 				Point doorPosition = new Point(areaA.Left + rng.Next(areaA.Width - 2) + 1, areaA.Bottom - 1);
-				tiles[doorPosition.X, doorPosition.Y] = Tile.Empty;
+				//tiles[doorPosition.X, doorPosition.Y] = Tile.Empty;
+
+				for (int i = (areaA.Top + areaA.Bottom) / 2; i < (areaB.Top + areaB.Bottom) / 2; i++)
+				{
+					tiles[doorPosition.X, i] = Tile.Empty;
+				}
 			}
 			else
 			{
 				// Vertically aligned
+				//
+				//	A - B
+				//
+
 				Point doorPosition = new Point(areaA.Right - 1, areaA.Top + rng.Next(areaA.Height - 2) + 1);
-				tiles[doorPosition.X, doorPosition.Y] = Tile.Empty;
+				//tiles[doorPosition.X, doorPosition.Y] = Tile.Empty;
+				
+				for (int i = (areaA.Left + areaA.Right) / 2; i < (areaB.Left + areaB.Right) / 2; i++)
+				{
+					tiles[i, doorPosition.Y] = Tile.Empty;
+				}
 			}
 
 			return true;
