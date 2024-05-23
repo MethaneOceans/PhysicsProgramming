@@ -22,7 +22,6 @@ namespace GXPEngine.Dungeons
 				{ 
 					ChildA.Leaves.ForEach((leaf) => leaves.Add(leaf));
 					ChildB.Leaves.ForEach((leaf) => leaves.Add(leaf));
-
 				}
 				else leaves.Add(Self);
 				return leaves;

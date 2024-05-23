@@ -9,15 +9,16 @@ namespace GXPEngine.Dungeons
 		private EasyDraw ed;
 
 		private const int minRoomSize = 7;
-		private const int dungeonWidth = 40;
-		private const int dungeonHeight = 22;
+		private const int dungeonWidth = 140;
+		private const int dungeonHeight = 80;
 
 		public DungeonTest()
 		{
 			ed = new EasyDraw(game.Width, game.Height);
 			AddChild(ed);
 
-			dungeon = new SufficientDungeon(new Size(dungeonWidth, dungeonHeight), 2, 1);
+			dungeon = new SufficientDungeon(new Size(dungeonWidth, dungeonHeight), 6);
+			dungeon.RenderToED(ed, 10);
 		}
 	}
 }

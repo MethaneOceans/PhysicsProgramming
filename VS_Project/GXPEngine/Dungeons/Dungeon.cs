@@ -41,7 +41,7 @@ namespace GXPEngine.Dungeons
 		}
 
 		// Writes walls as '#' and empty spaces as '.'
-		protected void RenderToConsole()
+		public void RenderToConsole()
 		{
 			for (int y = 0; y < size.Height; y++)
 			{
@@ -56,7 +56,7 @@ namespace GXPEngine.Dungeons
 			}
 		}
 		// Colors walls gray and empty spaces white
-		protected void RenderToED(EasyDraw ed, int tileSize)
+		public void RenderToED(EasyDraw ed, int tileSize)
 		{
 			ed.ClearTransparent();
 			ed.ShapeAlign(CenterMode.Min, CenterMode.Min);

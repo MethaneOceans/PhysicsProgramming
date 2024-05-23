@@ -13,7 +13,7 @@ namespace GXPEngine.Dungeons
 			if (seed == null) rng = new Random();
 			else rng = new Random((int)seed);
 
-			Rectangle baseArea = new Rectangle(1, 1, size.Width, size.Height);
+			Rectangle baseArea = new Rectangle(0, 0, size.Width, size.Height);
 			areaTopNode = new BinaryTreeNode<Rectangle>(baseArea);
 
 			SplitRectNode(areaTopNode, maxDepth);
@@ -27,7 +27,7 @@ namespace GXPEngine.Dungeons
 
 		private (bool horizontal, bool vertical) CanSplit(Rectangle area)
 		{
-			int minSize = 2 * MIN_ROOM_SIZE + 1;
+			int minSize = 2 * MIN_ROOM_SIZE + 3;
 			return (area.Size.Width > minSize, area.Size.Height > minSize);
 		}
 		private bool SplitRectNode(BinaryTreeNode<Rectangle> node, int maxDepth = 2, int depth = 0)
@@ -35,7 +35,7 @@ namespace GXPEngine.Dungeons
 			Rectangle root = node.Self;
 
 			// Check if node can be split
-			(bool vertical, bool horizontal) canSplit = CanSplit(node.Self);
+			(bool horizontal, bool vertical) canSplit = CanSplit(node.Self);
 			Rectangle areaA;
 			Rectangle areaB;
 
@@ -45,40 +45,48 @@ namespace GXPEngine.Dungeons
 				int axis = rng.Next() % 2;
 				if (axis == 0)
 				{
+					// Split horizontally
 					int splitVal = SplitValue(root.Left, root.Right);
-					areaA = new Rectangle(root.Left, root.Top, splitVal, root.Height);
-					areaB = new Rectangle(root.Right, root.Top, root.Width - splitVal, root.Height);
+					areaA = new Rectangle(root.Left, root.Top, splitVal - root.Left, root.Height);
+					areaB = new Rectangle(areaA.Right - 1, root.Top, root.Width - areaA.Width + 1, root.Height);
 				}
 				else
 				{
+					// Split vertically
 					int splitVal = SplitValue(root.Top, root.Bottom);
-					areaA = new Rectangle(root.Left, root.Top, root.Width, splitVal);
-					areaB = new Rectangle(root.Left, root.Bottom, root.Width, root.Height - splitVal);
+					areaA = new Rectangle(root.Left, root.Top, root.Width, splitVal - root.Top);
+					areaB = new Rectangle(root.Left, areaA.Bottom - 1, root.Width, root.Height - areaA.Height + 1);
 				}
 			}
 			else if (canSplit.horizontal)
 			{
 				// Split horizontally
 				int splitVal = SplitValue(root.Left, root.Right);
-				areaA = new Rectangle(root.Left, root.Top, splitVal, root.Height);
-				areaB = new Rectangle(root.Right, root.Top, root.Width - splitVal, root.Height);
+				areaA = new Rectangle(root.Left, root.Top, splitVal - root.Left, root.Height);
+				areaB = new Rectangle(areaA.Right - 1, root.Top, root.Width - areaA.Width + 1, root.Height);
 			}
 			else if (canSplit.vertical)
 			{
 				// Split vertically
 				int splitVal = SplitValue(root.Top, root.Bottom);
-				areaA = new Rectangle(root.Left, root.Top, root.Width, splitVal);
-				areaB = new Rectangle(root.Left, root.Bottom, root.Width, root.Height - splitVal);
+				areaA = new Rectangle(root.Left, root.Top, root.Width, splitVal - root.Top);
+				areaB = new Rectangle(root.Left, areaA.Bottom - 1, root.Width, root.Height - areaA.Height + 1);
 			}
 			else return false;
 
-			node.ChildA = new BinaryTreeNode<Rectangle>(areaA);
-			node.ChildB = new BinaryTreeNode<Rectangle>(areaB);
+			node.ChildA = new BinaryTreeNode<Rectangle>(areaA)
+			{
+				Parent = node,
+			};
+			node.ChildB = new BinaryTreeNode<Rectangle>(areaB)
+			{
+				Parent = node,
+			};
 
 			if (depth < maxDepth)
 			{
-				SplitRectNode(node.ChildA, depth + 1, maxDepth);
-				SplitRectNode(node.ChildB, depth + 1, maxDepth);
+				SplitRectNode(node.ChildA, maxDepth, depth + 1);
+				SplitRectNode(node.ChildB, maxDepth, depth + 1);
 			}
 
 			return true;
