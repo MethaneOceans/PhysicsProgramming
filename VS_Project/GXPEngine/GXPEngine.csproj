@@ -89,9 +89,12 @@
     <Compile Include="Core\Visual\Texture2D.cs" />
     <Compile Include="Debugging\Gizmos.cs" />
     <Compile Include="Debugging\TileIndexViewer.cs" />
-    <Compile Include="Dungeons\BinaryTreeNode.cs" />
+    <Compile Include="Dungeons\BSPNode.cs" />
+    <Compile Include="Dungeons\Door.cs" />
     <Compile Include="Dungeons\Dungeon.cs" />
     <Compile Include="Dungeons\DungeonTest.cs" />
+    <Compile Include="Dungeons\NavNode.cs" />
+    <Compile Include="Dungeons\Room.cs" />
     <Compile Include="Dungeons\SufficientDungeon.cs" />
     <Compile Include="Dungeons\Tile.cs" />
     <Compile Include="GlobalSuppressions.cs" />

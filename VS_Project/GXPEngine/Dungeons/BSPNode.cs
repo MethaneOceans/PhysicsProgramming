@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GXPEngine.Dungeons
 {
-	internal class BinaryTreeNode<T>
+	internal class BSPNode<T>
 	{
 		public T Self;
-		public BinaryTreeNode<T> Parent;
-		public BinaryTreeNode<T> ChildA;
-		public BinaryTreeNode<T> ChildB;
+		public BSPNode<T> Parent;
+		public BSPNode<T> ChildA;
+		public BSPNode<T> ChildB;
 
 		public List<T> this[int i]
 		{
@@ -37,6 +37,8 @@ namespace GXPEngine.Dungeons
 			}
 		}
 
+		// Gets a list of all endpoints aka "leaves"
+		// Endpoints don't have children.
 		public List<T> Leaves
 		{
 			get
@@ -52,7 +54,7 @@ namespace GXPEngine.Dungeons
 			}
 		}
 
-		public BinaryTreeNode<T> Sibling
+		public BSPNode<T> Sibling
 		{
 			get
 			{
@@ -63,7 +65,7 @@ namespace GXPEngine.Dungeons
 			}
 		}
 
-		public BinaryTreeNode(T self, BinaryTreeNode<T> parent = null)
+		public BSPNode(T self, BSPNode<T> parent = null)
 		{
 			Self = self;
 			Parent = parent;
