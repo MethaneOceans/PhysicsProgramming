@@ -89,6 +89,7 @@
     <Compile Include="Core\Visual\Texture2D.cs" />
     <Compile Include="Debugging\Gizmos.cs" />
     <Compile Include="Debugging\TileIndexViewer.cs" />
+    <Compile Include="Dungeons\Area.cs" />
     <Compile Include="Dungeons\BSPNode.cs" />
     <Compile Include="Dungeons\Door.cs" />
     <Compile Include="Dungeons\Dungeon.cs" />

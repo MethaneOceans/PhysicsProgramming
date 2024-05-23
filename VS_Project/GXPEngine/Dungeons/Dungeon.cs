@@ -6,13 +6,13 @@ namespace GXPEngine.Dungeons
 {
 	internal class Dungeon : GameObject
 	{
-		protected const int MIN_ROOM_SIZE = 7;
-		protected const int MIN_AREA_SIZE = MIN_ROOM_SIZE + 2;
+		public const int MIN_ROOM_SIZE = 7;
+		public const int MIN_AREA_SIZE = MIN_ROOM_SIZE + 2;
 
 		protected Size size;
 		protected Tile[,] tiles;
 		protected Random rng;
-		protected BSPNode<Rectangle> BSPRoot;
+		protected Area rootArea;
 
 		//public List<Room> rooms { get; protected set; }
 

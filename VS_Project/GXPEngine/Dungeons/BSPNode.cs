@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace GXPEngine.Dungeons
 {
-	internal class BSPNode<T>
+	internal abstract class BSPNode
 	{
-		public T Self;
-		public BSPNode<T> Parent;
-		public BSPNode<T> ChildA;
-		public BSPNode<T> ChildB;
+		public BSPNode Self;
+		public BSPNode Parent;
+		public BSPNode ChildA;
+		public BSPNode ChildB;
 
-		public List<T> this[int i]
+		public List<BSPNode> this[int i]
 		{
 			get
 			{
 				if (i == 0)
 				{
-					return new List<T> { Self };
+					return new List<BSPNode> { Self };
 				}
 				else
 				{
-					List<T> children = new List<T>();
+					List<BSPNode> children = new List<BSPNode>();
 
 					if (ChildA != null && ChildB != null)
 					{
@@ -39,11 +39,11 @@ namespace GXPEngine.Dungeons
 
 		// Gets a list of all endpoints aka "leaves"
 		// Endpoints don't have children.
-		public List<T> Leaves
+		public List<BSPNode> Leaves
 		{
 			get
 			{
-				List<T> leaves = new List<T>();
+				List<BSPNode> leaves = new List<BSPNode>();
 				if (ChildA != null && ChildB != null)
 				{ 
 					ChildA.Leaves.ForEach((leaf) => leaves.Add(leaf));
@@ -54,7 +54,7 @@ namespace GXPEngine.Dungeons
 			}
 		}
 
-		public BSPNode<T> Sibling
+		public BSPNode Sibling
 		{
 			get
 			{
@@ -65,9 +65,9 @@ namespace GXPEngine.Dungeons
 			}
 		}
 
-		public BSPNode(T self, BSPNode<T> parent = null)
+		public BSPNode(BSPNode parent = null)
 		{
-			Self = self;
+			Self = this;
 			Parent = parent;
 		}
 	}

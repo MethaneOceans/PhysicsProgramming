@@ -17,7 +17,7 @@ namespace GXPEngine.Dungeons
 			ed = new EasyDraw(game.Width, game.Height);
 			AddChild(ed);
 
-			dungeon = new SufficientDungeon(new Size(dungeonWidth, dungeonHeight), 4);
+			dungeon = new SufficientDungeon(new Size(dungeonWidth, dungeonHeight), 6);
 			dungeon.RenderToED(ed, 10);
 		}
 	}
