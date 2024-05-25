@@ -92,13 +92,13 @@ namespace GXPEngine.Dungeons
 		{
 			subAreas = null;
 
-			(bool horizontal, bool vertical) canSplit = CanSplit(area);
+			(bool horizontal, bool vertical) = CanSplit(area);
 			Rectangle areaA;
 			Rectangle areaB;
 			SplitMode splitMode;
 
 			// Sets the splitmode according to how an area can be split
-			if (canSplit.horizontal && canSplit.vertical)
+			if (horizontal && vertical)
 			{
 				// Split along longest dimension or random if they are equal
 				if (area.Width > area.Height)
@@ -117,8 +117,8 @@ namespace GXPEngine.Dungeons
 					else splitMode = SplitMode.vertical;
 				}
 			}
-			else if (canSplit.horizontal) splitMode = SplitMode.horizontal;
-			else if (canSplit.vertical) splitMode = SplitMode.vertical;
+			else if (horizontal) splitMode = SplitMode.horizontal;
+			else if (vertical) splitMode = SplitMode.vertical;
 			// Area cannot be split, return false indicating that the split operation failed
 			else return false;
 

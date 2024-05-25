@@ -12,5 +12,7 @@ namespace GXPEngine.Dungeons
 		public Rectangle Area;
 
 		public Point Center => new Point(Area.X + Area.Width / 2, Area.Y + Area.Height / 2);
+
+		public Room
 	}
 }

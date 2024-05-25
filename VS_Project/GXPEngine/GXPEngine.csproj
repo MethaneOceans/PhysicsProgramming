@@ -94,6 +94,7 @@
     <Compile Include="Dungeons\Door.cs" />
     <Compile Include="Dungeons\Dungeon.cs" />
     <Compile Include="Dungeons\DungeonTest.cs" />
+    <Compile Include="Dungeons\GeneratorConstants.cs" />
     <Compile Include="Dungeons\NavNode.cs" />
     <Compile Include="Dungeons\Room.cs" />
     <Compile Include="Dungeons\SufficientDungeon.cs" />

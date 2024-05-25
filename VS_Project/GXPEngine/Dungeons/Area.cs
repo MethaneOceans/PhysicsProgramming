@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static GXPEngine.Dungeons.GeneratorConstants;
 
 namespace GXPEngine.Dungeons
 {
 	// Areas form a BSP and thus can be split into smaller areas
 	internal class Area : BSPNode
 	{
-		private const int MIN_AREA_SIZE = Dungeon.MIN_AREA_SIZE;
-		private const int MIN_ROOM_SIZE = Dungeon.MIN_ROOM_SIZE;
-
 		public Rectangle Rectangle;
 		public int Width => Size.Width;
 		public int Height => Size.Height;
@@ -69,6 +67,8 @@ namespace GXPEngine.Dungeons
 
 			return;
 		}
+
+		// Split the area until tree has a specific depth
 		public void Split(int maxDepth, Random rng)
 		{
 			int depth = 0;
@@ -82,11 +82,13 @@ namespace GXPEngine.Dungeons
 			}
 		}
 
+		// Enum for better code readability in splitting methods
 		protected enum SplitMode
 		{
 			vertical,
 			horizontal,
 		}
+
 		// Checks if an area is big enough to be split in either direction
 		protected (bool horizontal, bool vertical) CanSplit()
 		{

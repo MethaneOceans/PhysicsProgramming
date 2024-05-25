@@ -1,31 +1,11 @@
-# Final Approach "Wizard with a laser!"
-## Goal functionality
-- Throw an object in the air
-- Lock the object in place when te player chooses
-- Rotate the object
-- Hit the object with a laser and emit resulting lasers
-- Hit a goal object with the laser using these mechanics
+# GXPPlus
+It's a modified version of gxp, what can I say?
 
-## Underlying functionality
-- Ray intersection solution for the shape of the thrown object
-- Kinematics for thrown objects
-- Object responses for getting hit by laser (event based probably?)
-
-## Other stuff
-- If the laser should be sprite based then a new Sprite inheriting class has to be made that changes the uv coordinates so the laser sprite does not get stretched
-- Sound
-- Levels?
-- Other objects?
-- Maybe the "prism" should use actual refraction or just emit lasers perpendicular to the edges
-
-## TODO
-- [ ] - Raycasting
-- [ ] - Drawing the ray on the screen
-- [ ] - Kinematics update method (just euler)
-- [ ] - Win state trigger if goals are all hit
-- [ ] - Create "Prism" object
-- [ ] - Shoot a new prism
-- [ ] - Lock the prism in place
-- [ ] - Rotate the prism
-- [ ] - Cast new rays from prism object
-- [x] - Aim catapult at mouse
+Some features that are added or changed:
+- Quite some properties are now capitalized, this is confusing for anyone that doesn't use this version though, sorry.
+- Input now has a property for mouse position as a vector2, this makes working with the mouse in some cases a lot simpler.
+- A different physics namespace, it works but not that well right now.
+- A way to get assets from the static assets class, as long as files are categorized by "Sounds" and "Textures" in the "Assets" folder, 
+the class can look for filenames in those folders so memorizing/copying long paths is not necessary.
+- Scenes! The object works almost exactly the same as the game but you can add it as child to the game, switch to a different scene and back or just load another scene. 
+It's easier than restarting the application.
