@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using static GXPEngine.Mathf;
 
 namespace GXPEngine

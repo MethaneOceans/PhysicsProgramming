@@ -12,6 +12,7 @@ namespace GXPEngine.Physics
 	{
 		public GameObject Owner;
 		public bool ShouldRemove = false;
+		public bool CollidedLastFrame = false;
 
 		public Vector2 Position
 		{

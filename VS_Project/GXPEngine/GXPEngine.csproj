@@ -41,12 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AddOns\Control\Scenes\" />
     <Folder Include="Assets\Audio\" />
-    <Folder Include="Control\Scenes\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Assets.cs" />
-    <Compile Include="Control\Scene.cs" />
+    <Compile Include="Core\AddOns\Assets.cs" />
+    <Compile Include="AddOns\Control\Scene.cs" />
     <Compile Include="Core\AddOns\Settings.cs" />
     <Compile Include="Core\AddOns\TiledLoader.cs" />
     <Compile Include="Core\AddOns\TiledMapParser.cs" />
@@ -87,29 +87,28 @@
     <Compile Include="Core\Visual\Sprite.cs" />
     <Compile Include="Core\Visual\SpriteBatch.cs" />
     <Compile Include="Core\Visual\Texture2D.cs" />
-    <Compile Include="Debugging\Gizmos.cs" />
-    <Compile Include="Debugging\TileIndexViewer.cs" />
+    <Compile Include="Core\Debugging\Gizmos.cs" />
+    <Compile Include="Core\Debugging\TileIndexViewer.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="MathUtils.cs" />
+    <Compile Include="AddOns\MathUtils.cs" />
     <Compile Include="MyGame.cs" />
-    <Compile Include="Physics\ACollider.cs" />
-    <Compile Include="Physics\CircleCollider.cs" />
-    <Compile Include="Physics\CollisionInfo.cs" />
-    <Compile Include="Physics\OBCollider.cs" />
-    <Compile Include="Physics\PhysicsManager.cs" />
-    <Compile Include="Physics\PhysicsObject.cs" />
-    <Compile Include="Physics\Primitives\Box.cs" />
-    <Compile Include="Physics\Primitives\Circle.cs" />
-    <Compile Include="Physics\Ray.cs" />
+    <Compile Include="AddOns\Physics\ACollider.cs" />
+    <Compile Include="AddOns\Physics\CircleCollider.cs" />
+    <Compile Include="AddOns\Physics\CollisionInfo.cs" />
+    <Compile Include="AddOns\Physics\OBCollider.cs" />
+    <Compile Include="AddOns\Physics\PhysicsManager.cs" />
+    <Compile Include="AddOns\Physics\PhysicsObject.cs" />
+    <Compile Include="AddOns\Physics\Primitives\Box.cs" />
+    <Compile Include="AddOns\Physics\Primitives\Circle.cs" />
+    <Compile Include="AddOns\Physics\Ray.cs" />
+    <Compile Include="Wormshocked\Objects\Projectile.cs" />
+    <Compile Include="Wormshocked\Objects\SquareTile.cs" />
+    <Compile Include="Wormshocked\Scenes\WormshockedScene.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\.editorconfig">
-      <Link>.editorconfig</Link>
-    </None>
-    <None Include="app.config" />
-    <None Include="lib\libglfw-64.dylib" />
-    <None Include="lib\libglfw.so" />
-    <None Include="lib\libsoloud-64.dylib" />
+    <None Include="Core\lib\libglfw-64.dylib" />
+    <None Include="Core\lib\libglfw.so" />
+    <None Include="Core\lib\libsoloud-64.dylib" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Textures\2D Pixel Dungeon Asset Pack\character and tileset\demonstration.png" />
@@ -296,11 +295,15 @@
     <Content Include="Assets\Textures\2D Pixel Dungeon Asset Pack\items and trap_animation\torch\torch_2.png" />
     <Content Include="Assets\Textures\2D Pixel Dungeon Asset Pack\items and trap_animation\torch\torch_3.png" />
     <Content Include="Assets\Textures\2D Pixel Dungeon Asset Pack\items and trap_animation\torch\torch_4.png" />
-    <Content Include="lib\COPYING.txt" />
-    <Content Include="lib\Fmod.License.txt" />
-    <Content Include="lib\fmodex.dll" />
-    <Content Include="lib\glfw.dll" />
-    <Content Include="lib\soloud.dll" />
-    <Content Include="lib\soloud_x64.dll" />
+    <None Include="BuildConfig\CopyEssentials.bat" />
+    <Content Include="Core\lib\COPYING.txt" />
+    <Content Include="Core\lib\Fmod.License.txt" />
+    <Content Include="Core\lib\fmodex.dll" />
+    <Content Include="Core\lib\glfw.dll" />
+    <Content Include="Core\lib\soloud.dll" />
+    <Content Include="Core\lib\soloud_x64.dll" />
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>call ..\..\BuildConfig\CopyEssentials.bat</PostBuildEvent>
+  </PropertyGroup>
 </Project>

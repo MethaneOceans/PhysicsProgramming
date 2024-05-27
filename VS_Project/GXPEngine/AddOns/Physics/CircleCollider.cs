@@ -49,6 +49,7 @@ namespace GXPEngine.Physics
 			if (!circleOverlaps) return false;
 
 			bestCol.Normal = -bestCol.Normal;
+			bestCol.Other = other;
 			LastCollision = bestCol;
 			return true;
 		}

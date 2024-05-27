@@ -6,9 +6,12 @@ namespace GXPEngine.Physics
 {
 	internal class PhysicsManager
 	{
-		public List<ACollider> Objects => bodies;
+		public IReadOnlyList<ACollider> Objects => bodies.AsReadOnly();
+		public Vector2 Gravity = new Vector2();
 
 		private readonly List<ACollider> bodies;
+
+		// It may have been a mistake to make these lists since they complicate adding colliders. Unfortunately a mess to rip out
 		private readonly List<ACollider> staticColliders;
 		private readonly List<ACollider> triggerColliders;
 		private readonly List<ACollider> rigidColliders;
@@ -42,6 +45,8 @@ namespace GXPEngine.Physics
 				obj.BehaviorChanged += BehaviorChangeHandler;
 			}
 		}
+		public void Add(PhysicsObject pObj) => Add(pObj.body);
+
 		public void Remove(ACollider obj)
 		{
 			if (ActiveStep)
@@ -59,6 +64,8 @@ namespace GXPEngine.Physics
 				obj.BehaviorChanged -= BehaviorChangeHandler;
 			}
 		}
+		public void Remove(PhysicsObject pObj) => Remove(pObj.body);
+
 		private void ForceRemove(ACollider obj)
 		{
 			bodies.Remove(obj);
@@ -100,7 +107,17 @@ namespace GXPEngine.Physics
 				Step_Triggers(obj);
 
 				// Copied from ACollider
-				obj.Velocity += new Vector2(0, 0.2);
+
+				// If true then the object collided with something beneath it
+				if (obj.CollidedLastFrame && Vector2.Dot(obj.LastCollision.Normal, Gravity) < 0)
+				{
+					obj.Velocity += Gravity * obj.LastCollision.Normal.X;
+					obj.CollidedLastFrame = false;
+				}
+				else
+				{
+					obj.Velocity += Gravity;
+				}
 				obj.Position += obj.Velocity;
 
 				bool collided = false;
@@ -108,6 +125,7 @@ namespace GXPEngine.Physics
 
 				foreach (ACollider collider in bodies)
 				{
+					// Don't resolve collisions with triggers or self
 					if (collider == obj || collider.Behavior == ColliderType.Trigger) continue;
 					if (obj.Overlapping(collider))
 					{
@@ -119,18 +137,27 @@ namespace GXPEngine.Physics
 						collided = true;
 					}
 				}
+
+				// Resolve collision if there is one
 				if (collided)
 				{
 					obj.Position -= bestCol.Normal * bestCol.Depth;
 
 					Vector2 q = Vector2.Dot(bestCol.Normal, obj.Velocity) * bestCol.Normal;
 					obj.Velocity -= (2 * 0.9f) * q;
+					obj.CollidedLastFrame = true;
 				}
 
-				obj.Owner.Position = obj.Position;
-				obj.Owner.Rotation = obj.Angle;
+				// Update connected game object of collider, if it has one
+				if (obj.Owner != null)
+				{
+					obj.Owner.Position = obj.Position;
+					obj.Owner.Rotation = obj.Angle;
+				}
 			}
 		}
+
+		// TODO: This is the wrong way around, triggers should check it when they get updated?
 		private void Step_Triggers(ACollider obj)
 		{
 			foreach (ACollider trigger in triggerColliders)

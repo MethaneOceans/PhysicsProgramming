@@ -2,6 +2,7 @@ using GXPEngine;
 using GXPEngine.Assets;
 using GXPEngine.Control;
 using GXPEngine.Debugging;
+using GXPEngine.Scenes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,12 +17,13 @@ internal class MyGame : Game
 
 	public MyGame() : base(1600, 900, pFullScreen: false, pPixelArt: true)
 	{
-		TargetFps = int.MaxValue;
-
-		showfps = true;
+		// Add fps counter for debugging (probably more for checking if update loops take too long)
+		showfps = false;
 		fpsCounter = new EasyDraw(200, 50);
 		fpsCounter.TextAlign(CenterMode.Min, CenterMode.Min);
 		AddChild(fpsCounter);
+
+		new WormshockedScene().Load();
 
 		Console.WriteLine("MyGame initialized");
 
@@ -46,12 +48,6 @@ internal class MyGame : Game
 		{
 			showfps = !showfps;
 			fpsCounter.visible = showfps;
-		}
-
-		if (Input.GetKeyDown(Key.F2) && !(Scene.Current is TileIndexViewer))
-		{
-			if (Scene.Current == null) new TileIndexViewer(Assets.GetTexturePath("Dungeon_Tileset.png"), 10, 10).Load();
-			else Scene.Switch(new TileIndexViewer(Assets.GetTexturePath("Dungeon_Tileset.png"), 10, 10));
 		}
 	}
 	static void Main()
