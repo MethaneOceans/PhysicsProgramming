@@ -1,4 +1,5 @@
 ﻿using GXPEngine.Physics;
+using GXPEngine.Scenes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace GXPEngine.Wormshocked.Objects
 				Behavior = ACollider.ColliderType.Rigid
 			};
 			body.OnCollision += OnCollision;
+			body.OnDestroy += (sender, args) => Destroy();
 
 			EasyDraw ed = new EasyDraw(radius * 2, radius * 2);
 			ed.ShapeAlign(CenterMode.Min, CenterMode.Min);
@@ -33,13 +35,25 @@ namespace GXPEngine.Wormshocked.Objects
 
 		private void OnCollision(object sender, (ACollider thisCol, ACollider otherCol) args)
 		{
-			Sprite.Destroy();
 			body.ShouldRemove = true;
 
-			if (args.otherCol != null && args.otherCol.Owner is SquareTile squareTile)
+			if (parent is WormshockedScene scene)
 			{
-				squareTile.Health -= 1;
+				IReadOnlyList<ACollider> colliders = scene.colliders;
+
+				if (args.otherCol != null && args.otherCol.Owner is SquareTile squareTile)
+				{
+					CircleCollider circle = new CircleCollider(body.Position, 100, this);
+					foreach (ACollider collider in colliders)
+					{
+						if (collider.Owner is SquareTile tile && circle.Overlapping(collider))
+						{
+							tile.Health--;
+						}
+					}
+				}
 			}
+			
 		}
 	}
 }

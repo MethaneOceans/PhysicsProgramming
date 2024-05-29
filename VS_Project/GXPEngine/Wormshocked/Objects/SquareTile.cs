@@ -12,16 +12,16 @@ namespace GXPEngine.Wormshocked.Objects
 		private Sprite Sprite;
 		public int Health;
 
-		public SquareTile(Vector2 position, int health = 3)
+		public SquareTile(Vector2 position, int size = 50, int health = 3)
 		{
-			body = new OBCollider(position, new Vector2(50, 50), 0, this);
+			body = new OBCollider(position, new Vector2(size, size), 0, this);
 			body.OnDestroy += (caller, args) => Destroy();
 
-			EasyDraw ed = new EasyDraw(50, 50);
+			EasyDraw ed = new EasyDraw(size, size);
 			ed.ShapeAlign(CenterMode.Min, CenterMode.Min);
 			ed.Stroke(128);
 			ed.Fill(200);
-			ed.Rect(0, 0, 50, 50);
+			ed.Rect(0, 0, size, size);
 			Sprite = ed;
 			AddChild(Sprite);
 			Sprite.SetOrigin(Sprite.width / 2, Sprite.height / 2);

@@ -15,6 +15,7 @@ namespace GXPEngine.Scenes
 	{
 		//protected List<PhysicsObject> physicsObjects;
 		protected PhysicsManager physicsManager;
+		public IReadOnlyList<ACollider> colliders => physicsManager.Objects;
 
 		public WormshockedScene()
 		{
@@ -23,14 +24,17 @@ namespace GXPEngine.Scenes
 				Gravity = new Vector2(0, 0.1)
 			};
 
-			int platformWidth = 32;
-			int platformHeight = 4;
+			int platformWidth = 64;
+			int platformHeight = 8;
 
 			for (int j = 0; j < platformHeight; j++)
 			{
 				for (int i = 0; i < platformWidth; i++)
 				{
-					SquareTile sTile = new SquareTile(new Vector2(Width / 2 + 25 + (i - platformWidth / 2) * 50, Height - 25 - j * 50));
+					int tileSize = 25;
+					SquareTile sTile = new SquareTile(new Vector2(
+						Width / 2 + (tileSize / 2) + (i - platformWidth / 2) * tileSize, 
+						Height - (tileSize / 2) - j * tileSize), tileSize);
 					physicsManager.Add(sTile);
 					AddChild(sTile);
 				}

@@ -37,7 +37,6 @@ namespace GXPEngine.Physics
 		}
 		private float _angle;
 
-		public bool IsColliding;
 		public CollisionInfo LastCollision
 		{
 			get => _lastCol;

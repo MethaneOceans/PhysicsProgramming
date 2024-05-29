@@ -114,10 +114,7 @@ namespace GXPEngine.Physics
 					obj.Velocity += Gravity * obj.LastCollision.Normal.X;
 					obj.CollidedLastFrame = false;
 				}
-				else
-				{
-					obj.Velocity += Gravity;
-				}
+				else obj.Velocity += Gravity;
 				obj.Position += obj.Velocity;
 
 				bool collided = false;
