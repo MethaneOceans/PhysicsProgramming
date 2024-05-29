@@ -1,10 +1,6 @@
 using GXPEngine;
-using GXPEngine.Assets;
-using GXPEngine.Control;
-using GXPEngine.Debugging;
 using GXPEngine.Scenes;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 //using GXPEngine.Scenes;
 
@@ -26,8 +22,6 @@ internal class MyGame : Game
 		new WormshockedScene().Load();
 
 		Console.WriteLine("MyGame initialized");
-
-		Console.WriteLine(Assets.GetTexturePath("Dungeon_Tileset.png"));
 	}
 
 	private void Update()
@@ -50,6 +44,7 @@ internal class MyGame : Game
 			fpsCounter.visible = showfps;
 		}
 	}
+
 	static void Main()
 	{
 		new MyGame().Start();
