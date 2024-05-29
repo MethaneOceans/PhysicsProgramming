@@ -30,6 +30,7 @@ namespace GXPEngine.Physics
 
 		public void Add(ACollider obj)
 		{
+			// Prevent adding objects during steps
 			if (ActiveStep)
 			{
 				throw new InvalidOperationException("Currently running a step, cannot add object");
@@ -46,7 +47,6 @@ namespace GXPEngine.Physics
 			}
 		}
 		public void Add(PhysicsObject pObj) => Add(pObj.body);
-
 		public void Remove(ACollider obj)
 		{
 			if (ActiveStep)
@@ -74,7 +74,7 @@ namespace GXPEngine.Physics
 			else if (obj.Behavior == ColliderType.Rigid) rigidColliders.Remove(obj);
 			else if (obj.Behavior == ColliderType.Trigger) triggerColliders.Remove(obj);
 
-			obj.BehaviorChanged -= BehaviorChangeHandler;
+			//obj.BehaviorChanged -= BehaviorChangeHandler;
 			obj.Destroy();
 		}
 

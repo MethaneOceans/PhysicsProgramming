@@ -15,13 +15,13 @@ namespace GXPEngine.Scenes
 	{
 		//protected List<PhysicsObject> physicsObjects;
 		protected PhysicsManager physicsManager;
-		public IReadOnlyList<ACollider> colliders => physicsManager.Objects;
+		public IReadOnlyList<ACollider> Colliders => physicsManager.Objects;
 
 		public WormshockedScene()
 		{
 			physicsManager = new PhysicsManager()
 			{
-				Gravity = new Vector2(0, 0.1)
+				Gravity = new Vector2(0, 0.05)
 			};
 
 			int platformWidth = 64;

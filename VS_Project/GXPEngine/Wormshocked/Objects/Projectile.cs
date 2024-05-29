@@ -11,7 +11,6 @@ namespace GXPEngine.Wormshocked.Objects
 	internal class Projectile : PhysicsObject
 	{
 		protected Sprite Sprite;
-		private bool exploded = false;
 
 		public Projectile(Vector2 position, Vector2 velocity, int radius, Sprite sprite = null)
 		{
@@ -36,18 +35,24 @@ namespace GXPEngine.Wormshocked.Objects
 
 		private void OnCollision(object sender, (ACollider thisCol, ACollider otherCol) args)
 		{
-			body.ShouldRemove = true;
+			if (!(parent is WormshockedScene scene && args.otherCol != null && !body.ShouldRemove)) return;
 
-			if (!(parent is WormshockedScene scene && args.otherCol != null && args.otherCol.Owner is SquareTile && !exploded)) return;
-			IReadOnlyList<ACollider> colliders = scene.colliders;
-
-			CircleCollider circle = new CircleCollider(body.Position, 100, this);
-			foreach (ACollider collider in colliders)
+			if (args.otherCol.Owner is SquareTile)
 			{
-				if (collider.Owner is SquareTile tile && circle.Overlapping(collider)) tile.Health--;
-			}
+				IReadOnlyList<ACollider> colliders = scene.Colliders;
 
-			exploded = true;
+				CircleCollider circle = new CircleCollider(body.Position, 100, this);
+				foreach (ACollider collider in colliders)
+				{
+					if (collider.Owner is SquareTile tile && circle.Overlapping(collider)) tile.Health--;
+				}
+
+				body.ShouldRemove = true;
+			}
+		}
+		private void OnCollisionTile(object sender, (ACollider thisCol, ACollider otherCol) args)
+		{
+
 		}
 	}
 }
