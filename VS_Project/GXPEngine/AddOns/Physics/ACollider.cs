@@ -13,6 +13,8 @@ namespace GXPEngine.Physics
 		public GameObject Owner;
 		public bool ShouldRemove = false;
 		public bool CollidedLastFrame = false;
+		public float Bounciness = 0.5f;
+		public BounceCalcMode BounceMode = BounceCalcMode.Average;
 
 		public Vector2 Position
 		{

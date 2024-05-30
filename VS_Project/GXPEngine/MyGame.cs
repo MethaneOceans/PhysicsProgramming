@@ -43,6 +43,7 @@ internal class MyGame : Game
 			showfps = !showfps;
 			fpsCounter.visible = showfps;
 		}
+		if (Input.GetKeyDown(Key.R)) new WormshockedScene().Load();
 	}
 
 	static void Main()

@@ -101,11 +101,15 @@
     <Compile Include="AddOns\Physics\Primitives\Box.cs" />
     <Compile Include="AddOns\Physics\Primitives\Circle.cs" />
     <Compile Include="AddOns\Physics\Ray.cs" />
+    <Compile Include="Wormshocked\Objects\PlayerCharacter.cs" />
     <Compile Include="Wormshocked\Objects\Projectile.cs" />
     <Compile Include="Wormshocked\Objects\SquareTile.cs" />
     <Compile Include="Wormshocked\Scenes\WormshockedScene.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="Core\lib\libglfw-64.dylib" />
     <None Include="Core\lib\libglfw.so" />
     <None Include="Core\lib\libsoloud-64.dylib" />

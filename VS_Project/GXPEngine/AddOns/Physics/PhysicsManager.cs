@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using static GXPEngine.Physics.ACollider;
+using static GXPEngine.Mathf;
 
 namespace GXPEngine.Physics
 {
@@ -120,6 +121,7 @@ namespace GXPEngine.Physics
 				bool collided = false;
 				CollisionInfo bestCol = new CollisionInfo();
 
+				// Check if there are collisions and which one is the deepest into another collider
 				foreach (ACollider collider in bodies)
 				{
 					// Don't resolve collisions with triggers or self
@@ -138,10 +140,14 @@ namespace GXPEngine.Physics
 				// Resolve collision if there is one
 				if (collided)
 				{
+					// Move object out of the other object
 					obj.Position -= bestCol.Normal * bestCol.Depth;
-
+					// Calculate the velocity along the normal of the collision
 					Vector2 q = Vector2.Dot(bestCol.Normal, obj.Velocity) * bestCol.Normal;
-					obj.Velocity -= (2 * 0.9f) * q;
+					float bounciness = CalculateBounciness(obj.BounceMode, obj.Bounciness, bestCol.Other.Bounciness);
+
+					// Reflect velocity along normal
+					obj.Velocity -= (1f + bounciness) * q;
 					obj.CollidedLastFrame = true;
 				}
 
@@ -154,19 +160,38 @@ namespace GXPEngine.Physics
 			}
 		}
 
-		// TODO: This is the wrong way around, triggers should check it when they get updated?
+		private float CalculateBounciness(BounceCalcMode bounceMode, float bouncinessA, float bouncinessB)
+		{
+			switch (bounceMode)
+			{
+				case BounceCalcMode.Min:
+					return Min(bouncinessA, bouncinessB);
+				case BounceCalcMode.Max:
+					return Max(bouncinessA, bouncinessB);
+				case BounceCalcMode.Average:
+					goto default;
+				case BounceCalcMode.Multiply:
+					return bouncinessA * bouncinessB;
+				default:
+					return (bouncinessA + bouncinessB) / 2f;
+			}
+		}
+
+		// Checks overlaps with triggers and invokes the method attached to a trigger
 		private void Step_Triggers(ACollider obj)
 		{
 			foreach (ACollider trigger in triggerColliders)
 			{
 				if (obj.Overlapping(trigger))
 				{
-					// Should apply forces
-					trigger.TriggerMethod(trigger, obj);
+					// Call the attached method if it exists
+					trigger.TriggerMethod?.Invoke(trigger, obj);
 				}
 			}
 		}
 
+		// Method handles sorting of behavior changes.
+		// TODO: Method is UNSAFE, add safety checks to prevent changes during a step.
 		private void BehaviorChangeHandler(object sender, BehaviorChangeEvent args)
 		{
 			ColliderType oldB = args.OldBehavior;
@@ -180,5 +205,13 @@ namespace GXPEngine.Physics
 			else if (newB == ColliderType.Trigger) triggerColliders.Add((ACollider)sender);
 			else if (newB == ColliderType.Rigid) rigidColliders.Add((ACollider)sender);
 		}
+	}
+
+	internal enum BounceCalcMode
+	{
+		Min,
+		Max,
+		Average,
+		Multiply,
 	}
 }
