@@ -17,6 +17,9 @@ namespace GXPEngine.Scenes
 		protected PhysicsManager physicsManager;
 		public IReadOnlyList<ACollider> Colliders => physicsManager.Objects;
 
+		List<PlayerCharacter> playerCharacters;
+		int currentCharIndex = 0;
+
 		public WormshockedScene()
 		{
 			physicsManager = new PhysicsManager()
@@ -26,18 +29,29 @@ namespace GXPEngine.Scenes
 
 			int platformWidth = 64;
 			int platformHeight = 8;
+			int tileSize = 25;
 
 			for (int j = 0; j < platformHeight; j++)
 			{
 				for (int i = 0; i < platformWidth; i++)
 				{
-					int tileSize = 25;
 					SquareTile sTile = new SquareTile(new Vector2(
 						Width / 2 + (tileSize / 2) + (i - platformWidth / 2) * tileSize, 
 						Height - (tileSize / 2) - j * tileSize), tileSize);
 					physicsManager.Add(sTile);
 					AddChild(sTile);
 				}
+			}
+
+			playerCharacters = new List<PlayerCharacter>
+			{
+				new PlayerCharacter(new Vector2(Width / 4, Height / 2)),
+				new PlayerCharacter(new Vector2(Width - Width / 4, Height / 2)),
+			};
+			foreach (PlayerCharacter character in playerCharacters)
+			{
+				physicsManager.Add(character);
+				AddChild(character);
 			}
 		}
 
@@ -48,14 +62,7 @@ namespace GXPEngine.Scenes
 
 		public void Update()
 		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				Console.WriteLine("Adding projectile");
-				Projectile projectile = new Projectile(Input.mousePos, new Vector2(), 10);
-				
-				physicsManager.Add(projectile);
-				AddChild(projectile);
-			}
+			PlayerCharacter currentPlayer = playerCharacters[currentCharIndex];
 
 			physicsManager.Step();
 		}
