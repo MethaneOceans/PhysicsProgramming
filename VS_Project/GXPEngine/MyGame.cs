@@ -1,7 +1,9 @@
 using GXPEngine;
+using GXPEngine.Control;
 using GXPEngine.Scenes;
 using System;
 using System.Drawing;
+using System.Reflection;
 //using GXPEngine.Scenes;
 
 internal class MyGame : Game
@@ -43,7 +45,12 @@ internal class MyGame : Game
 			showfps = !showfps;
 			fpsCounter.visible = showfps;
 		}
+
 		if (Input.GetKeyDown(Key.R)) new WormshockedScene().Load();
+		if (Input.GetKeyDown(Key.F4))
+		{
+			
+		}
 	}
 
 	static void Main()

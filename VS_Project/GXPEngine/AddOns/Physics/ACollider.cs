@@ -96,40 +96,8 @@ namespace GXPEngine.Physics
 		public abstract float RayCast(Ray ray);
 		public abstract Vector2 NormalAt(Vector2 point);
 
-		public void Step(ICollection<ACollider> colliderList)
-		{
-			if (Behavior != ColliderType.Static)
-			{
-				Position += Velocity;
-
-				bool collided = false;
-				CollisionInfo bestCol = new CollisionInfo();
-
-				foreach (ACollider collider in colliderList)
-				{
-					if (collider == this || collider.Behavior == ColliderType.Trigger) continue;
-					if (Overlapping(collider))
-					{
-						CollisionInfo colInfo = LastCollision;
-						if (colInfo.Depth > bestCol.Depth)
-						{
-							bestCol = colInfo;
-						}
-						collided = true;
-					}
-				}
-				if (collided)
-				{
-					Position -= bestCol.Normal * bestCol.Depth;
-
-					Vector2 q = Vector2.Dot(bestCol.Normal, Velocity) * bestCol.Normal;
-					Velocity -= (2 * 0.9f) * q;
-				}
-
-				Owner.Position = Position;
-			}
-		}
 		protected abstract void Invalidate();
+
 		public EventHandler OnDestroy = null;
 		public void Destroy() => OnDestroy?.Invoke(this, new EventArgs());
 	}
