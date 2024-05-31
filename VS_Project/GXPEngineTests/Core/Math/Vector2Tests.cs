@@ -21,11 +21,11 @@ namespace Tests
 			Assert.AreEqual(0, vector.X);
 			Assert.AreEqual(0, vector.Y);
 
-			vector = Vector2.PositiveX;
+			vector = Vector2.Right;
 			Assert.AreEqual(1, vector.X);
 			Assert.AreEqual(0, vector.Y);
 
-			vector = Vector2.PositiveY;
+			vector = Vector2.Down;
 			Assert.AreEqual(0, vector.X);
 			Assert.AreEqual(1, vector.Y);
 		}
@@ -82,16 +82,16 @@ namespace Tests
 		[TestMethod()]
 		public void Deg2RadTest()
 		{
-			Assert.AreEqual(PI, Vector2.Deg2Rad(180), 0.0001f);
-			Assert.AreEqual(PI / 4f, Vector2.Deg2Rad(45), 0.0001f);
+			Assert.AreEqual(PI, 180 * Vector2.D2R, 0.0001f);
+			Assert.AreEqual(PI / 4f, 45 * Vector2.D2R, 0.0001f);
 		}
 
 		[TestCategory("Functionality test")]
 		[TestMethod()]
 		public void Rad2DegTest()
 		{
-			Assert.AreEqual(180, Vector2.Rad2Deg(PI), 0.0001f);
-			Assert.AreEqual(45, Vector2.Rad2Deg(PI / 4f), 0.0001f);
+			Assert.AreEqual(180, PI * Vector2.R2D, 0.0001f);
+			Assert.AreEqual(45, PI / 4f * Vector2.R2D, 0.0001f);
 		}
 
 		[TestCategory("Functionality test")]
@@ -100,9 +100,9 @@ namespace Tests
 		{
 			Vector2 v = new Vector2(1, 1);
 			Assert.AreEqual(PI / 4f, v.GetRadians());
-			v = Vector2.PositiveY;
+			v = Vector2.Down;
 			Assert.AreEqual(PI / 2f, v.GetRadians());
-			v = -Vector2.PositiveX;
+			v = -Vector2.Right;
 			Assert.AreEqual(-PI, v.GetRadians());
 		}
 
@@ -112,9 +112,9 @@ namespace Tests
 		{
 			Vector2 v = new Vector2(1, 1);
 			Assert.AreEqual(45, v.GetDegrees(), 0.0001f);
-			v = Vector2.PositiveY;
+			v = Vector2.Down;
 			Assert.AreEqual(90, v.GetDegrees(), 0.0001f);
-			v = -Vector2.PositiveX;
+			v = -Vector2.Right;
 			Assert.AreEqual(-180, v.GetDegrees(), 0.0001f);
 		}
 
@@ -122,7 +122,7 @@ namespace Tests
 		[TestMethod()]
 		public void SetRadiansTest()
 		{
-			Vector2 v = Vector2.PositiveY;
+			Vector2 v = Vector2.Down;
 			v.SetRadians(PI);
 			Assert.IsTrue(new Vector2(-1, 0).Equals(v, 0.0001f));
 			Assert.AreEqual(1, v.Length());
@@ -132,7 +132,7 @@ namespace Tests
 		[TestMethod()]
 		public void SetDegreesTest()
 		{
-			Vector2 v = Vector2.PositiveY;
+			Vector2 v = Vector2.Down;
 			v.SetDegrees(180);
 			Assert.IsTrue(new Vector2(-1, 0).Equals(v, 0.0001f));
 			Assert.AreEqual(1, v.Length());
@@ -181,9 +181,9 @@ namespace Tests
 		{
 			Vector2 v = new Vector2(1, 1).Normalized();
 			v = v.RotatedRad(-PI / 4f);
-			Assert.IsTrue(v.Equals(Vector2.PositiveX, 0.0001f));
+			Assert.IsTrue(v.Equals(Vector2.Right, 0.0001f));
 			v = v.RotatedRad(PI);
-			Assert.IsTrue(v.Equals(-Vector2.PositiveX, 0.0001f));
+			Assert.IsTrue(v.Equals(-Vector2.Right, 0.0001f));
 		}
 
 		[TestCategory("Functionality test")]
@@ -192,11 +192,11 @@ namespace Tests
 		{
 			Vector2 v = new Vector2(1, 1).Normalized();
 			v = v.RotatedDeg(-45f);
-			Assert.IsTrue(v.Equals(Vector2.PositiveX, 0.0001f));
+			Assert.IsTrue(v.Equals(Vector2.Right, 0.0001f));
 			v = v.RotatedDeg(180f);
-			Assert.IsTrue(v.Equals(-Vector2.PositiveX, 0.0001f));
+			Assert.IsTrue(v.Equals(-Vector2.Right, 0.0001f));
 			v = v.RotatedDeg(180f);
-			Assert.IsTrue(v.Equals(Vector2.PositiveX, 0.0001f));
+			Assert.IsTrue(v.Equals(Vector2.Right, 0.0001f));
 		}
 
 		[TestCategory("Functionality test")]
@@ -205,8 +205,8 @@ namespace Tests
 		{
 			Vector2[] vectors =
 			{
-				Vector2.PositiveX,
-				Vector2.PositiveY,
+				Vector2.Right,
+				Vector2.Down,
 				new Vector2(1, 1).Normalized(),
 			};
 
@@ -234,8 +234,8 @@ namespace Tests
 		{
 			Vector2[] vectors =
 			{
-				Vector2.PositiveX,
-				Vector2.PositiveY,
+				Vector2.Right,
+				Vector2.Down,
 				new Vector2(1, 1).Normalized(),
 			};
 
@@ -283,8 +283,8 @@ namespace Tests
 		[TestMethod()]
 		public void LerpTest()
 		{
-			Vector2 a = Vector2.PositiveX;
-			Vector2 b = Vector2.PositiveY;
+			Vector2 a = Vector2.Right;
+			Vector2 b = Vector2.Down;
 			Vector2 result = Vector2.Lerp(a, b, 0.5f).Normalized();
 			Vector2 expected = new Vector2(1, 1).Normalized();
 			Assert.IsTrue(result.Equals(expected, 0.0001f));
@@ -294,8 +294,8 @@ namespace Tests
 		[TestMethod()]
 		public void DotTest()
 		{
-			Vector2 a = Vector2.PositiveX;
-			Vector2 b = Vector2.PositiveY;
+			Vector2 a = Vector2.Right;
+			Vector2 b = Vector2.Down;
 			Assert.AreEqual(0, Vector2.Dot(a, b));
 			Assert.AreEqual(1, Vector2.Dot(a, a));
 			Assert.AreEqual(1, Vector2.Dot(b, b));
@@ -306,8 +306,8 @@ namespace Tests
 		[TestMethod()]
 		public void DotTest1()
 		{
-			Vector2 a = Vector2.PositiveX;
-			Vector2 b = Vector2.PositiveY;
+			Vector2 a = Vector2.Right;
+			Vector2 b = Vector2.Down;
 			Assert.AreEqual(0, a.Dot(b));
 			Assert.AreEqual(1, a.Dot(a));
 			Assert.AreEqual(1, b.Dot(b));
@@ -318,9 +318,9 @@ namespace Tests
 		[TestMethod()]
 		public void NormalTest()
 		{
-			Vector2 v = Vector2.PositiveX * 5;
+			Vector2 v = Vector2.Right * 5;
 			Vector2 result = v.Normal();
-			Vector2 expected = Vector2.PositiveY;
+			Vector2 expected = Vector2.Down;
 			Assert.IsTrue(result.Equals(expected, 0.0001f));
 		}
 

@@ -26,8 +26,8 @@ namespace GXPEngine.Wormshocked.Objects
 			Position = position;
 
 			EasyDraw ed = new EasyDraw(PLAYER_WIDTH, PLAYER_HEIGHT);
-			ed.Fill(Color.Blue);
-			ed.Stroke(Color.DarkBlue);
+			ed.Fill(Color.White);
+			ed.Stroke(Color.Gray);
 			ed.ShapeAlign(CenterMode.Min, CenterMode.Min);
 			ed.Rect(0, 0, ed.width, ed.height);
 
@@ -35,11 +35,6 @@ namespace GXPEngine.Wormshocked.Objects
 			AddChild(sprite);
 			sprite.SetOrigin(sprite.width / 2, sprite.height / 2);
 			sprite.Position = new Vector2();
-		}
-
-		private void Update()
-		{
-
 		}
 	}
 }

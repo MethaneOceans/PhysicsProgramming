@@ -31,6 +31,7 @@ namespace GXPEngine.Scenes
 			int platformHeight = 8;
 			int tileSize = 25;
 
+			// Create floor out of tiles with specified size and count of tiles
 			for (int j = 0; j < platformHeight; j++)
 			{
 				for (int i = 0; i < platformWidth; i++)
