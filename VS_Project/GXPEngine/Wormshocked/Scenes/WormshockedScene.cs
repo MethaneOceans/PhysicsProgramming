@@ -19,7 +19,10 @@ namespace GXPEngine.Scenes
 
 		List<PlayerCharacter> playerCharacters;
 		PlayerCharacter currentPlayer;
+		float movementLeft;
 		int currentCharIndex = 0;
+
+		// TODO: Add UI showing movement left and current player
 
 		public WormshockedScene()
 		{
@@ -65,9 +68,18 @@ namespace GXPEngine.Scenes
 
 		public void Update()
 		{
-			currentPlayer.HandleControls();
+			if (movementLeft <= 0) NextPlayer();
+			movementLeft = currentPlayer.HandleControls(movementLeft);
 
 			physicsManager.Step();
+		}
+
+		private void NextPlayer()
+		{
+			currentCharIndex++;
+			currentCharIndex %= playerCharacters.Count;
+			currentPlayer = playerCharacters[currentCharIndex];
+			movementLeft = 100;
 		}
 	}
 }

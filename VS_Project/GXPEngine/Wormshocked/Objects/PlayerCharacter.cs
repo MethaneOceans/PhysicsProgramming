@@ -37,20 +37,48 @@ namespace GXPEngine.Wormshocked.Objects
 			sprite.Position = new Vector2();
 		}
 
-		public void HandleControls()
+		public float HandleControls(float movementLeft)
 		{
 			if (body.CollidedLastFrame)
 			{
-				if (Input.GetKey(Key.A)) body.Velocity -= Vector2.Right * 0.05f;
-				if (Input.GetKey(Key.D)) body.Velocity += Vector2.Right * 0.05f;
+				if (Input.GetKey(Key.A))
+				{
+					body.Velocity -= Vector2.Right * 0.05f;
+					movementLeft -= 0.1f;
+
+				}
+				if (Input.GetKey(Key.D))
+				{
+					body.Velocity += Vector2.Right * 0.05f;
+					movementLeft -= 0.1f;
+				}
 			}
 			else
 			{
-				if (Input.GetKey(Key.A)) body.Velocity -= Vector2.Right * 0.01f;
-				if (Input.GetKey(Key.D)) body.Velocity += Vector2.Right * 0.01f;
+				if (Input.GetKey(Key.A))
+				{
+					body.Velocity -= Vector2.Right * 0.01f;
+					movementLeft -= 0.1f;
+				}
+				if (Input.GetKey(Key.D))
+				{
+					body.Velocity += Vector2.Right * 0.01f;
+					movementLeft -= 0.1f;
+				}
 			}
 
-			if (Input.GetKeyDown(Key.SPACE)) body.Velocity -= Vector2.Down * 4;
+			if (Input.GetKeyDown(Key.SPACE))
+			{
+				body.Velocity -= Vector2.Down * 4;
+				movementLeft -= 0.5f;
+			}
+
+			if (Input.GetMouseButtonDown(0))
+			{
+				
+			}
+
+			return movementLeft;
 		}
 	}
 }
