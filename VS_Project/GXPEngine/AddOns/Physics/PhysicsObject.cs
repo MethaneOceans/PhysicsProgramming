@@ -1,5 +1,7 @@
 ﻿namespace GXPEngine.Physics
 {
+
+	// Object to connect the GameObject class to the custom collider/physics code
 	internal abstract class PhysicsObject : GameObject
 	{
 		public ACollider body;

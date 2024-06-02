@@ -93,13 +93,11 @@
     <Compile Include="AddOns\MathUtils.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="AddOns\Physics\ACollider.cs" />
-    <Compile Include="AddOns\Physics\CircleCollider.cs" />
+    <Compile Include="AddOns\Physics\Colliders\CircleCollider.cs" />
     <Compile Include="AddOns\Physics\CollisionInfo.cs" />
-    <Compile Include="AddOns\Physics\OBCollider.cs" />
+    <Compile Include="AddOns\Physics\Colliders\OBCollider.cs" />
     <Compile Include="AddOns\Physics\PhysicsManager.cs" />
     <Compile Include="AddOns\Physics\PhysicsObject.cs" />
-    <Compile Include="AddOns\Physics\Primitives\Box.cs" />
-    <Compile Include="AddOns\Physics\Primitives\Circle.cs" />
     <Compile Include="AddOns\Physics\Ray.cs" />
     <Compile Include="Wormshocked\Objects\PlayerCharacter.cs" />
     <Compile Include="Wormshocked\Objects\Projectile.cs" />

@@ -13,7 +13,7 @@ namespace GXPEngine.Wormshocked.Objects
 		private const int PLAYER_WIDTH = 32;
 		private const int PLAYER_HEIGHT = 32;
 
-		private Sprite sprite;
+		public readonly Sprite sprite;
 
 		public PlayerCharacter(Vector2 position)
 		{

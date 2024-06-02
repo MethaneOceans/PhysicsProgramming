@@ -18,6 +18,7 @@ namespace GXPEngine.Scenes
 		public IReadOnlyList<ACollider> Colliders => physicsManager.Objects;
 
 		List<PlayerCharacter> playerCharacters;
+		PlayerCharacter currentPlayer;
 		int currentCharIndex = 0;
 
 		public WormshockedScene()
@@ -37,7 +38,7 @@ namespace GXPEngine.Scenes
 				for (int i = 0; i < platformWidth; i++)
 				{
 					SquareTile sTile = new SquareTile(new Vector2(
-						Width / 2 + (tileSize / 2) + (i - platformWidth / 2) * tileSize, 
+						Width / 2 + (tileSize / 2) + (i - platformWidth / 2) * tileSize,
 						Height - (tileSize / 2) - j * tileSize), tileSize);
 					physicsManager.Add(sTile);
 					AddChild(sTile);
@@ -54,6 +55,7 @@ namespace GXPEngine.Scenes
 				physicsManager.Add(character);
 				AddChild(character);
 			}
+			currentPlayer = playerCharacters[currentCharIndex];
 		}
 
 		protected virtual void GenerateTerrain(int platformWidth = 32, int platformHeight = 4)
@@ -63,9 +65,16 @@ namespace GXPEngine.Scenes
 
 		public void Update()
 		{
-			PlayerCharacter currentPlayer = playerCharacters[currentCharIndex];
+			HandlePLayerControls();
 
 			physicsManager.Step();
+		}
+
+		private void HandlePLayerControls()
+		{
+			if (Input.GetKey(Key.A)) currentPlayer.body.Velocity -= Vector2.Right * 0.05f;
+			if (Input.GetKey(Key.D)) currentPlayer.body.Velocity += Vector2.Right * 0.05f;
+			if (Input.GetKeyDown(Key.SPACE)) currentPlayer.body.Velocity -= Vector2.Down * 4;
 		}
 	}
 }

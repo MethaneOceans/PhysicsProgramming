@@ -28,7 +28,7 @@ public struct Vector2 : IEquatable<Vector2>
 	public static Vector2 Right => new Vector2(1, 0);	// Create unit length vector in positive X direction
 	public static Vector2 Down => new Vector2(0, 1);	// Create unit length vector in positive Y direction
 	public static Vector2 GetUnitVectorRad(float radians) => new Vector2(Cos(radians), Sin(radians));   // Create a unit vector in the specified direction
-	public static Vector2 GetUnitVectorDeg(float degrees) => GetUnitVectorRad(degrees * D2R);    // Create a unit vector in the specified direction
+	public static Vector2 GetUnitVectorDeg(float degrees) => GetUnitVectorRad(degrees * Deg2Rad);    // Create a unit vector in the specified direction
 	public static Vector2 RandomUnitVec(Random rng = null)   // Create a unit vector in a random direction 
 	{
 		if (rng == null) return GetUnitVectorDeg((float)(Random.NextDouble() * 360));
@@ -69,15 +69,14 @@ public struct Vector2 : IEquatable<Vector2>
 	//	-------------------------------------
 	//		Trigonometric methods
 	//	-------------------------------------
-	public const float D2R = PI / 180;
-	public const float R2D = 180 / PI;
 
-	public static float Deg2Rad(float degrees) => degrees * D2R;
-	public static float Rad2Deg(float radians) => radians * R2D;
+	// Conversion constants
+	public const float Deg2Rad = PI / 180f;
+	public const float Rad2Deg = 180f / PI;
 
 	// Angle calculation
 	public float GetRadians() => Atan2(Y, X);
-	public float GetDegrees() => R2D * Atan2(Y, X);
+	public float GetDegrees() => Rad2Deg * Atan2(Y, X);
 
 	// Set angle
 	public void SetRadians(float radians)	
@@ -86,7 +85,7 @@ public struct Vector2 : IEquatable<Vector2>
 	}
 	public void SetDegrees(float degrees)	
 	{
-		SetRadians(degrees * D2R);
+		SetRadians(degrees * Deg2Rad);
 	}
 
 	// Rotated copy
@@ -100,7 +99,7 @@ public struct Vector2 : IEquatable<Vector2>
 	}
 	public Vector2 RotatedDeg(float angle)	
 	{
-		return RotatedRad(angle * D2R);
+		return RotatedRad(angle * Deg2Rad);
 	}
 
 	// Batch rotation
@@ -123,7 +122,7 @@ public struct Vector2 : IEquatable<Vector2>
 	}
 	public static Vector2[] RotateVectorsDeg(Vector2[] vecs, float angle)	
 	{
-		angle *= D2R;
+		angle *= Deg2Rad;
 		float cosA = Cos(angle);
 		float sinA = Sin(angle);
 
@@ -154,7 +153,7 @@ public struct Vector2 : IEquatable<Vector2>
 	}
 	public Vector2 RotateAroundDegrees(Vector2 point, float degrees) 
 	{
-		return RotateAroundRadians(point, degrees * D2R);
+		return RotateAroundRadians(point, degrees * Deg2Rad);
 	}
 
 	public static Vector2 Lerp(Vector2 a, Vector2 b, float t) => a + ((b - a) * t); // Linear interpolation function for vectors 

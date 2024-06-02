@@ -82,16 +82,16 @@ namespace Tests
 		[TestMethod()]
 		public void Deg2RadTest()
 		{
-			Assert.AreEqual(PI, 180 * Vector2.D2R, 0.0001f);
-			Assert.AreEqual(PI / 4f, 45 * Vector2.D2R, 0.0001f);
+			Assert.AreEqual(PI, 180 * Vector2.Deg2Rad, 0.0001f);
+			Assert.AreEqual(PI / 4f, 45 * Vector2.Deg2Rad, 0.0001f);
 		}
 
 		[TestCategory("Functionality test")]
 		[TestMethod()]
 		public void Rad2DegTest()
 		{
-			Assert.AreEqual(180, PI * Vector2.R2D, 0.0001f);
-			Assert.AreEqual(45, PI / 4f * Vector2.R2D, 0.0001f);
+			Assert.AreEqual(180, PI * Vector2.Rad2Deg, 0.0001f);
+			Assert.AreEqual(45, PI / 4f * Vector2.Rad2Deg, 0.0001f);
 		}
 
 		[TestCategory("Functionality test")]

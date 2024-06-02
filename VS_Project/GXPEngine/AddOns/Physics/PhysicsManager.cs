@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using static GXPEngine.Physics.ACollider;
 using static GXPEngine.Mathf;
+using System.Diagnostics;
+using GXPEngine.Wormshocked.Objects;
 
 namespace GXPEngine.Physics
 {
@@ -110,12 +112,20 @@ namespace GXPEngine.Physics
 				// Copied from ACollider
 
 				// If true then the object collided with something beneath it
-				if (obj.CollidedLastFrame && Vector2.Dot(obj.LastCollision.Normal, Gravity) < 0)
+				if (obj.CollidedLastFrame && Vector2.Dot(obj.LastCollision.Normal, Gravity) > 0)
 				{
-					obj.Velocity += Gravity * obj.LastCollision.Normal.X;
-					obj.CollidedLastFrame = false;
+					//Debug.WriteLine("Touching floor");
+					if (obj.Owner is PlayerCharacter pc) pc.sprite.SetColor(1, 0, 0);
+
+					obj.Velocity += Gravity - Vector2.Dot(Gravity, obj.LastCollision.Normal) * Gravity;
+					// Friction
+					obj.Velocity *= 0.95f;
 				}
-				else obj.Velocity += Gravity;
+				else
+				{
+					obj.Velocity += Gravity;
+					if (obj.Owner is PlayerCharacter pc) pc.sprite.SetColor(1, 1, 1);
+				}
 				obj.Position += obj.Velocity;
 
 				bool collided = false;
@@ -134,6 +144,7 @@ namespace GXPEngine.Physics
 							bestCol = colInfo;
 						}
 						collided = true;
+						obj.CollidedLastFrame = true;
 					}
 				}
 
@@ -148,8 +159,8 @@ namespace GXPEngine.Physics
 
 					// Reflect velocity along normal
 					obj.Velocity -= (1f + bounciness) * q;
-					obj.CollidedLastFrame = true;
 				}
+				else obj.CollidedLastFrame = false;
 
 				// Update connected game object of collider, if it has one
 				if (obj.Owner != null)
@@ -169,11 +180,11 @@ namespace GXPEngine.Physics
 				case BounceCalcMode.Max:
 					return Max(bouncinessA, bouncinessB);
 				case BounceCalcMode.Average:
-					goto default;
+					return (bouncinessA + bouncinessB) / 2f;
 				case BounceCalcMode.Multiply:
 					return bouncinessA * bouncinessB;
 				default:
-					return (bouncinessA + bouncinessB) / 2f;
+					goto case BounceCalcMode.Average;
 			}
 		}
 
