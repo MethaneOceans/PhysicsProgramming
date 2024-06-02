@@ -65,16 +65,9 @@ namespace GXPEngine.Scenes
 
 		public void Update()
 		{
-			HandlePLayerControls();
+			currentPlayer.HandleControls();
 
 			physicsManager.Step();
-		}
-
-		private void HandlePLayerControls()
-		{
-			if (Input.GetKey(Key.A)) currentPlayer.body.Velocity -= Vector2.Right * 0.05f;
-			if (Input.GetKey(Key.D)) currentPlayer.body.Velocity += Vector2.Right * 0.05f;
-			if (Input.GetKeyDown(Key.SPACE)) currentPlayer.body.Velocity -= Vector2.Down * 4;
 		}
 	}
 }
