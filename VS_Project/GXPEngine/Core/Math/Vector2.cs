@@ -6,7 +6,7 @@ public struct Vector2 : IEquatable<Vector2>
 	private static Random Random = new Random(); // Random object since the MathF implementation tends to be annoying
 
 	public float X, Y;
-	public (float x, float y) XY	// Get/Set tuple property 
+	public (float x, float y) XY    // Get/Set tuple property 
 	{
 		get => (X, Y);
 		set
@@ -19,14 +19,14 @@ public struct Vector2 : IEquatable<Vector2>
 	//	-------------------------------------
 	//		Constructors / Standard vectors
 	//	-------------------------------------
-	public Vector2(double x = 0, double y = 0)	// Default constructor 
+	public Vector2(double x = 0, double y = 0)  // Default constructor 
 	{
 		X = (float)x;
 		Y = (float)y;
 	}
-	public static Vector2 Zero => new Vector2(0, 0);	// Create zero length vector (Does the same as standard constructor without arguments)
-	public static Vector2 Right => new Vector2(1, 0);	// Create unit length vector in positive X direction
-	public static Vector2 Down => new Vector2(0, 1);	// Create unit length vector in positive Y direction
+	public static Vector2 Zero => new Vector2(0, 0);    // Create zero length vector (Does the same as standard constructor without arguments)
+	public static Vector2 Right => new Vector2(1, 0);   // Create unit length vector in positive X direction
+	public static Vector2 Down => new Vector2(0, 1);    // Create unit length vector in positive Y direction
 	public static Vector2 GetUnitVectorRad(float radians) => new Vector2(Cos(radians), Sin(radians));   // Create a unit vector in the specified direction
 	public static Vector2 GetUnitVectorDeg(float degrees) => GetUnitVectorRad(degrees * Deg2Rad);    // Create a unit vector in the specified direction
 	public static Vector2 RandomUnitVec(Random rng = null)   // Create a unit vector in a random direction 
@@ -38,11 +38,11 @@ public struct Vector2 : IEquatable<Vector2>
 	//	-------------------------------------
 	//		Math operators
 	//	-------------------------------------
-	public static Vector2 operator +(Vector2 a, Vector2 b) => new Vector2(a.X + b.X, a.Y + b.Y);	// Adds two vectors together (component-wise addition)
-	public static Vector2 operator -(Vector2 v) => new Vector2(-v.X, -v.Y);	// Negates a vector so it will point in the opposite direction
-	public static Vector2 operator -(Vector2 a, Vector2 b) => a + -b;	// Subtracts a vector
-	public static Vector2 operator *(Vector2 v, float s) => new Vector2(v.X * s, v.Y * s);	// Scales vector by scalar value
-	public static Vector2 operator *(float s, Vector2 v) => v * s;	// Scales vector by scalar value
+	public static Vector2 operator +(Vector2 a, Vector2 b) => new Vector2(a.X + b.X, a.Y + b.Y);    // Adds two vectors together (component-wise addition)
+	public static Vector2 operator -(Vector2 v) => new Vector2(-v.X, -v.Y); // Negates a vector so it will point in the opposite direction
+	public static Vector2 operator -(Vector2 a, Vector2 b) => a + -b;   // Subtracts a vector
+	public static Vector2 operator *(Vector2 v, float s) => new Vector2(v.X * s, v.Y * s);  // Scales vector by scalar value
+	public static Vector2 operator *(float s, Vector2 v) => v * s;  // Scales vector by scalar value
 	public static Vector2 operator /(Vector2 v, float s)    // Divides the components of a vector by a scalar value 
 	{
 		if (s == 0) throw new DivideByZeroException();
@@ -79,17 +79,17 @@ public struct Vector2 : IEquatable<Vector2>
 	public float GetDegrees() => Rad2Deg * Atan2(Y, X);
 
 	// Set angle
-	public void SetRadians(float radians)	
+	public void SetRadians(float radians)
 	{
 		this = new Vector2(Cos(radians), Sin(radians)) * Length();
 	}
-	public void SetDegrees(float degrees)	
+	public void SetDegrees(float degrees)
 	{
 		SetRadians(degrees * Deg2Rad);
 	}
 
 	// Rotated copy
-	public Vector2 RotatedRad(float angle)	
+	public Vector2 RotatedRad(float angle)
 	{
 		float sin = Sin(angle);
 		float cos = Cos(angle);
@@ -97,13 +97,13 @@ public struct Vector2 : IEquatable<Vector2>
 		float yComp = sin * X + cos * Y;
 		return new Vector2(xComp, yComp);
 	}
-	public Vector2 RotatedDeg(float angle)	
+	public Vector2 RotatedDeg(float angle)
 	{
 		return RotatedRad(angle * Deg2Rad);
 	}
 
 	// Batch rotation
-	public static Vector2[] RotateVectorsRad(Vector2[] vecs, float angle)	
+	public static Vector2[] RotateVectorsRad(Vector2[] vecs, float angle)
 	{
 		angle = 1 * angle;
 		float cosA = Cos(angle);
@@ -120,7 +120,7 @@ public struct Vector2 : IEquatable<Vector2>
 
 		return result;
 	}
-	public static Vector2[] RotateVectorsDeg(Vector2[] vecs, float angle)	
+	public static Vector2[] RotateVectorsDeg(Vector2[] vecs, float angle)
 	{
 		angle *= Deg2Rad;
 		float cosA = Cos(angle);
@@ -139,7 +139,7 @@ public struct Vector2 : IEquatable<Vector2>
 	}
 
 	// Rotation relative to a point
-	public Vector2 RotateAroundRadians(Vector2 point, float radians) 
+	public Vector2 RotateAroundRadians(Vector2 point, float radians)
 	{
 		Vector2 translated = this - point;
 
@@ -151,7 +151,7 @@ public struct Vector2 : IEquatable<Vector2>
 
 		return new Vector2(xComp, yComp) + point;
 	}
-	public Vector2 RotateAroundDegrees(Vector2 point, float degrees) 
+	public Vector2 RotateAroundDegrees(Vector2 point, float degrees)
 	{
 		return RotateAroundRadians(point, degrees * Deg2Rad);
 	}
@@ -161,11 +161,11 @@ public struct Vector2 : IEquatable<Vector2>
 	//	-------------------------------------
 	//		"Advanced" methods
 	//	-------------------------------------
-	public static float Dot(Vector2 a, Vector2 b)	// Calculates dot product (scalar product) of two vectors 
+	public static float Dot(Vector2 a, Vector2 b)   // Calculates dot product (scalar product) of two vectors 
 	{
 		return (a.X * b.X) + (a.Y * b.Y);
 	}
-	public float Dot(Vector2 other) => Dot(this, other);	// Calculates dot product of this vector instance with another vector
+	public float Dot(Vector2 other) => Dot(this, other);    // Calculates dot product of this vector instance with another vector
 
 	public Vector2 Normal() => new Vector2(-Y, X).Normalized(); // Creates a left hand normal for vector instance.
 
@@ -176,7 +176,7 @@ public struct Vector2 : IEquatable<Vector2>
 
 	public override bool Equals(object obj) => obj is Vector2 vector && Equals(vector);
 	public bool Equals(Vector2 other) => (X == other.X) && (Y == other.Y);
-	public bool Equals(Vector2 other, float delta)	// Equality with maximum deviation per component 
+	public bool Equals(Vector2 other, float delta)  // Equality with maximum deviation per component 
 	{
 		if (X == other.X && Y == other.Y) return true;
 		float xDif = Abs(X - other.X);

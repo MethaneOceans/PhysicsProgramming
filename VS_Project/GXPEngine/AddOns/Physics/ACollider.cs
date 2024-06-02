@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace GXPEngine.Physics
 {
@@ -77,9 +76,9 @@ namespace GXPEngine.Physics
 
 		public enum ColliderType
 		{
-			Rigid,		// Colliders are affected by gravity and are simulated
-			Trigger,	// Colliders are not affected by physics and do not directly influence other colliders, calls event for overlapping rigids
-			Static,		// Colliders are not affected by physics but do influence other rigid objects, used for floors
+			Rigid,      // Colliders are affected by gravity and are simulated
+			Trigger,    // Colliders are not affected by physics and do not directly influence other colliders, calls event for overlapping rigids
+			Static,     // Colliders are not affected by physics but do influence other rigid objects, used for floors
 		}
 
 		// Properties for triggers

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using GXPEngine.Wormshocked.Objects;
+using System;
 using System.Collections.Generic;
-using static GXPEngine.Physics.ACollider;
 using static GXPEngine.Mathf;
-using System.Diagnostics;
-using GXPEngine.Wormshocked.Objects;
+using static GXPEngine.Physics.ACollider;
 
 namespace GXPEngine.Physics
 {
