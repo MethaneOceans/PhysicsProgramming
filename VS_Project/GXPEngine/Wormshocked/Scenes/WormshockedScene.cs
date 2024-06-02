@@ -1,18 +1,17 @@
 ﻿using GXPEngine.Control;
 using GXPEngine.Physics;
 using GXPEngine.Wormshocked.Objects;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using static GXPEngine.Mathf;
 
 namespace GXPEngine.Scenes
 {
 	// Needed a title and the idea of the game is like what worms and shellshocked have done.
 	internal class WormshockedScene : Scene
 	{
+		private const int MAX_MOVEMENT_PER_TURN = 100;
+
 		//protected List<PhysicsObject> physicsObjects;
 		protected PhysicsManager physicsManager;
 		public IReadOnlyList<ACollider> Colliders => physicsManager.Objects;
@@ -23,6 +22,7 @@ namespace GXPEngine.Scenes
 		int currentCharIndex = 0;
 
 		// TODO: Add UI showing movement left and current player
+		EasyDraw movementTracker;
 
 		public WormshockedScene()
 		{
@@ -48,6 +48,7 @@ namespace GXPEngine.Scenes
 				}
 			}
 
+			// Add a list of player characters
 			playerCharacters = new List<PlayerCharacter>
 			{
 				new PlayerCharacter(new Vector2(Width / 4, Height / 2)),
@@ -58,28 +59,40 @@ namespace GXPEngine.Scenes
 				physicsManager.Add(character);
 				AddChild(character);
 			}
-			currentPlayer = playerCharacters[currentCharIndex];
-		}
+			NextPlayer();
 
-		protected virtual void GenerateTerrain(int platformWidth = 32, int platformHeight = 4)
-		{
-			
+			movementTracker = new EasyDraw(1, 75);
+			movementTracker.Clear(Color.Yellow);
+			movementTracker.Position = new Vector2(25, 25);
+			AddChild(movementTracker);
 		}
 
 		public void Update()
 		{
-			if (movementLeft <= 0) NextPlayer();
-			movementLeft = currentPlayer.HandleControls(movementLeft);
+			// Control handling
+			if (currentPlayer.HandleControls(ref movementLeft)) NextPlayer();
+
+			// Movement bar scaling
+			float normalizedMovementLeft = movementLeft / MAX_MOVEMENT_PER_TURN;
+			float moveTrackerScale = Clamp((Width - 50) * normalizedMovementLeft, 0, Width);
+			movementTracker.scaleX = moveTrackerScale;
 
 			physicsManager.Step();
 		}
 
+		// Advance the turn
 		private void NextPlayer()
 		{
 			currentCharIndex++;
 			currentCharIndex %= playerCharacters.Count;
 			currentPlayer = playerCharacters[currentCharIndex];
-			movementLeft = 100;
+			movementLeft = MAX_MOVEMENT_PER_TURN;
+		}
+
+		public void AddPhysicsObject(PhysicsObject physicsObject)
+		{
+			physicsManager.Add(physicsObject);
+			AddChild(physicsObject);
 		}
 	}
 }

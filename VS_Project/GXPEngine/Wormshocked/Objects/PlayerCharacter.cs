@@ -1,4 +1,5 @@
 using GXPEngine.Physics;
+using GXPEngine.Scenes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -37,45 +38,68 @@ namespace GXPEngine.Wormshocked.Objects
 			sprite.Position = new Vector2();
 		}
 
-		public float HandleControls(float movementLeft)
+		public bool HandleControls(ref float movementLeft)
 		{
-			if (body.CollidedLastFrame)
+			movementLeft = HandleMovement(movementLeft);
+
+			if (Input.GetMouseButtonDown(0))
 			{
-				if (Input.GetKey(Key.A))
+				Shoot();
+			}
+
+			if (Input.GetKeyDown(Key.ENTER)) return true;
+			else return false;
+		}
+
+		private void Shoot()
+		{
+			Vector2 mouse = Input.mousePos;
+
+			Vector2 diff = (mouse - Position).Normalized();
+			((WormshockedScene)parent).AddPhysicsObject(new Projectile(Position + diff * 50, diff * 5, 5));
+		}
+
+		private float HandleMovement(float movementLeft)
+		{
+			bool keyRight = Input.GetKey(Key.D);
+			bool keyLeft = Input.GetKey(Key.A);
+			bool keyJump = Input.GetKey(Key.SPACE);
+
+			if (body.CollidedLastFrame && movementLeft > 0f)
+			{
+				// Character on the ground has more control
+				if (keyLeft && !keyRight)
 				{
 					body.Velocity -= Vector2.Right * 0.05f;
 					movementLeft -= 0.1f;
 
 				}
-				if (Input.GetKey(Key.D))
+				if (keyRight && !keyLeft)
 				{
 					body.Velocity += Vector2.Right * 0.05f;
 					movementLeft -= 0.1f;
 				}
+
+				// Jump
+				if (keyJump)
+				{
+					body.Velocity -= Vector2.Down * 4;
+					movementLeft -= 1.0f;
+				}
 			}
-			else
+			else if (movementLeft > 0f)
 			{
-				if (Input.GetKey(Key.A))
+				// Character in the air has less movement control
+				if (keyLeft && !keyRight)
 				{
 					body.Velocity -= Vector2.Right * 0.01f;
 					movementLeft -= 0.1f;
 				}
-				if (Input.GetKey(Key.D))
+				if (keyRight && !keyLeft)
 				{
 					body.Velocity += Vector2.Right * 0.01f;
 					movementLeft -= 0.1f;
 				}
-			}
-
-			if (Input.GetKeyDown(Key.SPACE))
-			{
-				body.Velocity -= Vector2.Down * 4;
-				movementLeft -= 0.5f;
-			}
-
-			if (Input.GetMouseButtonDown(0))
-			{
-				
 			}
 
 			return movementLeft;
