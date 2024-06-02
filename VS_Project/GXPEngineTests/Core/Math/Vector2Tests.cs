@@ -11,6 +11,29 @@ namespace Tests
 	{
 		[TestCategory("Functionality test")]
 		[TestMethod()]
+		public void AdditionTest() => Assert.AreEqual(new Vector2(3, 2), new Vector2(2, 1) + new Vector2(1, 1));
+
+		[TestCategory("Functionality test")]
+		[TestMethod()]
+		public void SubtractionTest() => Assert.AreEqual(new Vector2(2, 1), new Vector2(3, 2) - new Vector2(1, 1));
+
+		[TestCategory("Functionality test")]
+		[TestMethod()]
+		public void MultiplicationTest() => Assert.AreEqual(new Vector2(4, 2), new Vector2(2, 1) * 2);
+
+		[TestCategory("Functionality test")]
+		[TestMethod()]
+		public void DivisionTest() => Assert.AreEqual(new Vector2(5, 3), new Vector2(15, 9) / 3);
+
+		[TestCategory("Functionality test")]
+		[TestMethod()]
+		public void DivisionExceptionTest()
+		{
+			Assert.ThrowsException<DivideByZeroException>(() => { _ = new Vector2(1, 1) / 0; });
+		}
+
+		[TestCategory("Functionality test")]
+		[TestMethod()]
 		public void Vector2Test()
 		{
 			Vector2 vector = new Vector2(3, 4);

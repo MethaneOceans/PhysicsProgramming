@@ -16,13 +16,12 @@ namespace GXPEngine.Scenes
 		protected PhysicsManager physicsManager;
 		public IReadOnlyList<ACollider> Colliders => physicsManager.Objects;
 
-		List<PlayerCharacter> playerCharacters;
-		PlayerCharacter currentPlayer;
-		float movementLeft;
-		int currentCharIndex = 0;
+		private List<PlayerCharacter> playerCharacters;
+		private PlayerCharacter currentPlayer;
+		private float movementLeft;
+		private int currentCharIndex = 0;
 
-		// TODO: Add UI showing movement left and current player
-		EasyDraw movementTracker;
+		private EasyDraw movementTracker;
 
 		public WormshockedScene()
 		{
@@ -56,8 +55,7 @@ namespace GXPEngine.Scenes
 			};
 			foreach (PlayerCharacter character in playerCharacters)
 			{
-				physicsManager.Add(character);
-				AddChild(character);
+				AddPhysicsObject(character);
 			}
 			NextPlayer();
 
